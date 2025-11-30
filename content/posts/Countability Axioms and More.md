@@ -1,6 +1,6 @@
 +++
 date = '2023-03-23T15:44:10-04:00'
-draft = false
+draft = true
 title = 'Countability Axioms and More'
 categories = 'Math'
 +++
@@ -43,6 +43,9 @@ Let $\{U_\alpha\}_{\alpha\in A}$ be any open cover of $X$.  Each basis element $
 > [!abstract] First and second countability of metric spaces
 > 1. Every metric space is first-countable.
 > 2. Every totally bounded metric space is second-countable.
+> > [!success] Proof
+> > 1. 
+> > 2. 
 
 > [!abstract] Equivalence of countability axioms in metric spaces
 > For a metric space $(X,d)$, the following statements are equivalent:

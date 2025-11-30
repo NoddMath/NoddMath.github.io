@@ -1,8 +1,8 @@
 +++
-date = '2023-04-06T15:44:10-04:00'
+date = "2023-04-06T15:44:10-04:00"
 draft = false
-title = 'More Compactness'
-categories = 'Math'
+title = "More Compactness"
+categories = "Math"
 ShowToc = true
 tags = [ "General Topology" ]
 +++
@@ -50,7 +50,7 @@ When the underlying space has certain properties, open cover compactness and seq
 > 
 > $(d)$ $X$ is limit point compact.
 > 
-> $(e)$ $X$ is complete and {{< tooltip "A subset $S$ of a metric space $(X,d)$ is totally bounded if for every $\varepsilon>0$, there exist finitely many points $x_1,x_2,\dots,x_n\in X$ such that $S\subseteq \bigcup_{i=1}^{n} B_{\varepsilon}(x_i)$." >}} totally bounded {{< /tooltip >}}.
+> $(e)$ $X$ is complete and {{< tooltip "A subset $S$ of a metric space $(X,d)$ is totally bounded if for every $\varepsilon>0$, there exist finitely many points $x_1,\dots,x_n\in X$ such that $S\subseteq \bigcup_{i=1}^{n} B_{\varepsilon}(x_i)$." >}} totally bounded {{< /tooltip >}}.
 > > [!success] Proof
 > > We will prove the equivalence between statements $(a)$, $(b)$, and $(e)$, as is done in most textbooks. The rest part is left as exercises.
 > > 

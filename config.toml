@@ -51,7 +51,9 @@ theme = ["PaperMod", "hugo-admonitions"]
 [params]
   math = true
   homeInfoParams = {Title = "Welcome!", Content = "This is my site for sharing math and other reflections."}
+  defaultTheme = "auto"
   ShowPostNavLinks = true
+  disableThemeToggle = false
 
 [outputs]
   home = [ "HTML", "RSS", "JSON" ]

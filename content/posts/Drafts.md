@@ -12,7 +12,7 @@ categories = 'Math'
 > - Skew-symmetry: $[x,y]=-[y,x]$ for all $x,y\in \mathfrak{g}$.  
 > - Jacobi identity: $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$ for all $x,y,z\in \mathfrak{g}$.
 > 
-> In particular, $\mathfrak{g}$ is called commutative if $[x,y]=0$ for all $x,y\in \mathfrak{g}$.
+> In particular, $\mathfrak{g}$ is commutative if $[x,y]=0$ for all $x,y\in \mathfrak{g}$.
 
 > [!info] Lie group
 > A **Lie group** is a smooth manifold $G$ equipped with a group structure such that the multiplication map $m:G\times G\to G$, given by $m(g,h)=gh$, and the inversion map $i:G\to G$, given by $i(g)=g^{-1}$, are both smooth.
@@ -48,13 +48,6 @@ categories = 'Math'
 
 > [!info] Section
 > Let $\pi:E\to B$ be a map between topological spaces. A **section** of $\pi$ is a continuous map $s:B\to E$ such that $\pi\circ s=\mathrm{id}_B$.
-
-Let $\pi:E\to B$ be a surjective map between topological spaces. For each point $b \in B$, the **fiber** over $b$ is the set:
-$$E_b := \pi^{-1}(b) \subseteq E.$$
-
-That is, the fiber consists of all points in the total space $E$ that are mapped to $b$ under the projection $\pi$.
-
-In other words, for each $b \in B$, the point $s(b)$ lies in the fiber $E_b$ over $b$. A section selects one point from each fiber continuously.
 
 > [!info] Ideal
 > An **ideal** of a ring $R$ is a subset $I\subseteq R$ such that:

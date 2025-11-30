@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="{{ "css/custom.css" | relURL }}">
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  tippy('[data-tippy-content]', {
+    allowHTML: true,
+    placement: 'auto',
+    maxWidth: 300,
+    appendTo: document.body,
+    onMount(instance) {
+      if (typeof renderMathInElement === 'function') {
+        if (!instance.popper.querySelector('.katex')) {
+          renderMathInElement(instance.popper, {
+            delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "$",  right: "$",  display: false},
+              {left: "\\(", right: "\\)", display: false}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+    }
+  });
+});
+</script>
+<style>
+.tippy-box { overflow: visible; }
+</style>

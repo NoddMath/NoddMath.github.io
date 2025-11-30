@@ -1,12 +1,11 @@
 +++
-date = '2023-11-19T15:44:10-04:00'
+date = "2023-11-19T15:44:10-04:00"
 draft = false
-title = 'Paracompactness and Partition of Unity'
-categories = 'Math'
+title = "Paracompactness and Partition of Unity"
+categories = "Math"
 ShowToc = true
 tags = [ "General Topology" ]
 +++
-
 
 ## Paracompactness and its properties
 

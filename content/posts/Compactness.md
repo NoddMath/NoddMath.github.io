@@ -1,8 +1,8 @@
 +++
-date = '2023-04-03T15:44:10-04:00'
+date = "2023-04-03T15:44:10-04:00"
 draft = false
-title = 'Compactness'
-categories = 'Math'
+title = "Compactness"
+categories = "Math"
 ShowToc = true
 tags = [ "General Topology" ]
 +++
@@ -69,7 +69,7 @@ Set $$U=\bigcup_{i=1}^n U_{a_i},\quad V=\bigcap_{i=1}^n V_{a_i}.$$Then
 Hence, $X$ is normal.
 
 > [!info] Filter
-> Given a set $X$, a **filter** $\mathcal{F}$ on $X$ is a collection of subsets of $X$ satisfying:
+> A **filter** $\mathcal{F}$ on a set $X$ is a collection of subsets of $X$ satisfying:
 > - $\emptyset\notin \mathcal{F}$.
 > - If $A,B\in \mathcal{F}$, then $A\cap B\in \mathcal{F}$.
 > - If $A\in \mathcal{F}$ and $A\subseteq B\subseteq X$, then $B\in \mathcal{F}$.

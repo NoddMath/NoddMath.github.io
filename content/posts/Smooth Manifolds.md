@@ -1,8 +1,8 @@
 +++
-date = '2023-12-19T15:44:10-04:00'
+date = "2023-12-19T15:44:10-04:00"
 draft = false
-title = 'Smooth Manifolds: Basics'
-categories = 'Math'
+title = "Smooth Manifolds: Basics"
+categories = "Math"
 ShowToc = true
 tags = [ "Differential Geometry", "Basics" ]
 +++

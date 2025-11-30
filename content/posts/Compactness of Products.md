@@ -1,8 +1,8 @@
 +++
-date = '2023-05-18T15:44:10-04:00'
+date = "2023-05-18T15:44:10-04:00"
 draft = false
 title = "Compactness of Products"
-categories = 'Math'
+categories = "Math"
 ShowToc = true
 tags = [ "General Topology" ]
 +++
@@ -32,10 +32,8 @@ Let $\mathcal{U} = \{U_i\}_{i \in I}$ be an open cover of $X \times Y$. For each
 
 By the Tube Lemma (with $Y$ compact), there exists an open neighborhood $W_x$ of $x$ in $X$ such that $W_x \times Y \subseteq N_x$. The collection $\{W_x\}_{x \in X}$ is an open cover of $X$. Since $X$ is compact, there exists a finite subcover $\{W_{x_1}, W_{x_2}, \dots, W_{x_m}\}$ for some $x_1, x_2, \dots, x_m \in X$.  
 
-For each $k = 1, 2, \dots, m$, $W_{x_k} \times Y \subseteq N_{x_k} = \bigcup_{i \in J_{x_k}} U_i$. Therefore,  
-\[
-X \times Y = \bigcup_{k=1}^m (W_{x_k} \times Y) \subseteq \bigcup_{k=1}^m \bigcup_{i \in J_{x_k}} U_i.
-\]  
+For each $k = 1, 2, \dots, m$, $W_{x_k}\times Y\subseteq N_{x_k}=\bigcup_{i\in J_{x_k}} U_i$. Therefore,  
+$$X\times Y=\bigcup_{k=1}^m (W_{x_k}\times Y)\subseteq \bigcup_{k=1}^m \bigcup_{i \in J_{x_k}} U_i.$$
 The right-hand side is a finite union of the finite sets $J_{x_k}$, so it is a finite subcover of $\mathcal{U}$. Hence, $X \times Y$ is compact.
 
 By induction, we arrive at the following corollary.
@@ -117,7 +115,7 @@ contradicting the FIP of ${F_i}_{i\in I}$. Hence our assumption was false, and $
 
   
 
-By the FIP characterization of compactness, $X$ is compact. ∎
+By the FIP characterization of compactness, $X$ is compact.
 ## Tychonoff's theorem and more
 
 At this point, we have proved the following beautiful and surprising result.

@@ -1,7 +1,7 @@
 +++
 date = '2022-08-29T15:44:10-04:00'
 draft = false
-title = "Before You Read These Notes"
+title = "Before You Read"
 categories = 'Math'
 +++
 ## Purpose and Limitations
@@ -60,3 +60,4 @@ It goes without saying that a solid foundation in high school-level mathematics 
 
 > [!quote] Quotes
 > Rarely used, but occasionally comes in handy.
+
