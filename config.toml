@@ -1,4 +1,4 @@
-baseURL = 'https://nodd0737.github.io/'
+baseURL = 'https://noddmath.github.io/'
 languageCode = 'en-us'
 title = "Nodd's Personal Website"
 publishDir = "public"
