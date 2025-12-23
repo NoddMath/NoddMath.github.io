@@ -4,7 +4,7 @@ draft = false
 title = 'Category Theory: Basics'
 categories = 'Math'
 ShowToc = true
-tags = [ "Category Theory", "Basics" ]
+tags = [ "Category Theory" ]
 +++
 
 > [!info] Category

@@ -4,254 +4,297 @@ draft = false
 title = "Minkowski Space and the First Geometry of Relativity"
 categories = [ "Math", "Others" ]
 ShowToc = true
-tags = [ "General Relativity" ]
+tags = [ "General Relativity", "Differential Geometry" ]
 +++
 
-This lecture sets up the **flat model** for general relativity: Minkowski space.
-We treat it primarily as a semi-Riemannian manifold (so the definitions will later
-generalize verbatim), but we also introduce the basic physical interpretations
-(observers, proper time, boosts) in a way that does not assume prior exposure to
-special relativity or analytical mechanics.
+General relativity is often introduced as “curved spacetime,” but curvature is not where the conceptual leap begins. The leap begins earlier: we decide that **time is measured by clocks carried along worldlines**, and we encode that decision geometrically. In flat spacetime, the geometry is not Euclidean but **Lorentzian**; the metric does not merely measure lengths, it also divides directions into timelike/null/spacelike and thereby produces the light cone. This causal split is the mathematical shadow of a physical statement: information and influence do not propagate arbitrarily fast.
+
+In this lecture we build the flat model: Minkowski space. We will treat it in a way that can later be repeated verbatim on a curved spacetime $(M,g)$ by replacing $(\mathbb{R}^{1,3},\eta)$ with $(T_pM,g_p)$ pointwise. Along the way we keep one guiding principle in mind:
+
+> [!important] Guiding Principle
+> A Lorentzian metric is a device for turning tangent vectors into clock readings and causal statements.
 
 ## Conventions and Notation
 
-Throughout the notes we use the sign convention
+We work in $3+1$ dimensions and use units in which $c=1$. The signature convention is
 $$(-,+,+,+).$$
-We set $c=1$.
-Spacetime indices are $\mu,\nu,\ldots\in\{0,1,2,3\}$ and spatial indices are
-$i,j,\ldots\in\{1,2,3\}$. We employ Einstein summation.
+We write a typical vector as $v=(v^0,v^1,v^2,v^3)$, and interpret $v^0$ as the time component in a chosen inertial coordinate system. Greek indices $\mu,\nu,\ldots$ range over $\{0,1,2,3\}$ and Latin indices $i,j,\ldots$ range over $\{1,2,3\}$. We use Einstein summation. For spatial vectors we write $\mathbf{v}=(v^1,v^2,v^3)$ and $|\mathbf{v}|^2=\sum_{i=1}^3 (v^i)^2$.
 
-Given a bilinear form $b$ and vectors $v,w$, we write $b(v,w)$ and in coordinates
-$b_{\mu\nu}v^\mu w^\nu$. In Minkowski space we write $\eta$ for the metric tensor.
+> [!danger] Signature Convention
+> Changing the signature convention changes various signs but not the geometry. What matters is that the metric have one negative and three positive directions (Lorentzian signature).
 
-## Minkowski Space as a Lorentzian Vector Space
+## Minkowski Space as a Lorentzian Vector Space and Affine Spacetime
 
-> [!info] Minkowski Space
-> The **Minkowski space** is the real vector space $\mathbb{R}^{4}$ equipped with the bilinear form  
-> $$\eta(v,w):=-v^{0}w^{0}+v^{1}w^{1}+v^{2}w^{2}+v^{3}w^{3},$$  
-> i.e. the matrix of $\eta$ in the standard basis is  
-> $$(\eta_{\mu\nu})=\mathrm{diag}(-1,1,1,1).$$  
-> We denote this Lorentzian inner product space by $(\mathbb{R}^{1,3},\eta)$.
+> [!info] Minkowski Metric and Minkowski Space
+> Let $\eta$ be the bilinear form on $\mathbb{R}^4$ given by
+> $$\eta(v,w):=-v^0w^0+v^1w^1+v^2w^2+v^3w^3.$$
+> We call $(\mathbb{R}^4,\eta)$ a **Lorentzian inner product space** and denote it by $(\mathbb{R}^{1,3},\eta)$.
 
-> [!danger] Remark
-> For later use: Minkowski spacetime is the affine space underlying $\mathbb{R}^{4}$
-> equipped with the translation-invariant Lorentzian metric $\eta$.
-> Thus vectors live in a fixed vector space $\mathbb{R}^{1,3}$, while tangent vectors at a point
-> $p$ of spacetime are canonically identified with $\mathbb{R}^{1,3}$ by translation.
+> [!danger] Vector Space vs. Spacetime
+> The phrase “Minkowski spacetime” usually refers to the **affine** space underlying $\mathbb{R}^4$ equipped with the translation-invariant Lorentzian metric $\eta$. The tangent space at every event is naturally identified with $\mathbb{R}^{1,3}$ by translation. This distinction becomes essential in curved spacetimes: the tangent space $T_pM$ is always a vector space, but the manifold $M$ is not.
 
-> [!info] Causal Character
-> A nonzero vector $v\in\mathbb{R}^{1,3}$ is called  
-> - **timelike** if $\eta(v,v)<0$,  
-> - **null** (or **lightlike**) if $\eta(v,v)=0$,  
-> - **spacelike** if $\eta(v,v)>0$.  
-> We also declare $0$ to be spacelike by convention.
+## Causal Character and the Light Cone
 
-> [!info] Time Orientation
-> A vector $v$ is **future-directed** if it is timelike or null and $v^{0}>0$,
-> and **past-directed** if it is timelike or null and $v^{0}<0$.
-> The choice of which component counts as "time" and which sign is "future"
-> is part of a **time orientation**.
+> [!info] Timelike, Null, and Spacelike
+> A nonzero vector $v\in\mathbb{R}^{1,3}$ is called
+> 1. **timelike** if $\eta(v,v)<0$,
+> 2. **null** (or **lightlike**) if $\eta(v,v)=0$,
+> 3. **spacelike** if $\eta(v,v)>0$.
+> By convention $0$ is called spacelike.
 
-> [!danger] Remark
-> The set $\{v:\eta(v,v)<0\}$ of timelike vectors has two connected components,
-> distinguished by the sign of $v^{0}$; choosing one as ``future'' is the time orientation.
-> This dichotomy survives on any time-orientable Lorentzian manifold.
+> [!info] Time Orientation in Minkowski Space
+> A causal (timelike or null) vector $v$ is **future-directed** if $v^0>0$ and **past-directed** if $v^0<0$. This choice specifies a **time orientation**.
+
+> [!note] A Useful Inequality for Causal Vectors
+> If $v$ is future-directed causal, then $v^0\ge |\mathbf{v}|$, with equality iff $v$ is null.
+
+> [!success] Proof
+> Causality means $\eta(v,v)\le 0$, i.e.
+> $$-(v^0)^2+|\mathbf{v}|^2\le 0 \quad\Longleftrightarrow\quad (v^0)^2\ge |\mathbf{v}|^2.$$
+> Future-directedness implies $v^0\ge 0$, hence $v^0\ge |\mathbf{v}|$. Equality holds exactly when $\eta(v,v)=0$.
+
+> [!danger] Why the Light Cone Matters
+> In Euclidean geometry, there is no intrinsic distinction between directions. In Lorentzian geometry, the light cone is an invariant geometric object: it is preserved by all symmetries of $\eta$. Physically, it encodes the causal structure: what can influence what. Mathematically, it is the structure that will survive on a curved spacetime even when no global inertial coordinates exist.
 
 ## Basic Inequalities and Orthogonal Complements
 
-Lorentzian geometry has analogues of the familiar Euclidean statements, but with important sign changes.
+The next statements are purely linear algebra, but they already carry physical meaning. They will later be applied with $\eta$ replaced by $g_p$ at each point.
 
 > [!abstract] Lorentzian Cauchy–Schwarz for Timelike Vectors
-> Let $u,v$ be future-directed timelike vectors in $(\mathbb{R}^{1,3},\eta)$. Then  
-> $$-\eta(u,v)\ge \sqrt{-\eta(u,u)}\,\sqrt{-\eta(v,v)},$$  
-> with equality if and only if $u$ and $v$ are positive scalar multiples of each other.
-> Equivalently, if $u$ and $v$ are future-directed **unit timelike** vectors
-> (i.e. $\eta(u,u)=\eta(v,v)=-1$), then $-\eta(u,v)\ge 1$.
+> Let $u,v\in\mathbb{R}^{1,3}$ be future-directed timelike vectors. Then
+> $$-\eta(u,v)\ge \sqrt{-\eta(u,u)}\,\sqrt{-\eta(v,v)},$$
+> with equality iff $u$ and $v$ are positive scalar multiples of each other. In particular, for future-directed **unit** timelike vectors (i.e. $\eta(u,u)=\eta(v,v)=-1$) one has $-\eta(u,v)\ge 1$.
 
 > [!success] Proof
-> Fix a future-directed timelike $u$. Since $\eta$ has signature $(-,+,+,+)$,
-> there exists an $\eta$-orthonormal basis $\{e_0,e_1,e_2,e_3\}$ with $e_0$ future-directed
-> timelike and $u=\alpha e_0$ where $\alpha=\sqrt{-\eta(u,u)}>0$.
-> Write $v=v^0 e_0+\sum_{i=1}^3 v^i e_i$. Then  
-> $$\eta(v,v)=-(v^0)^2+\sum_{i=1}^3 (v^i)^2<0\quad\Rightarrow\quad |v^0|>\sqrt{\sum_{i=1}^3 (v^i)^2}.$$  
-> Future-directed implies $v^0>0$. Moreover,  
-> $$\eta(u,v)=\eta(\alpha e_0, v)=\alpha\,\eta(e_0,v)=\alpha(-v^0)=-\alpha v^0.$$  
-> Hence $-\eta(u,v)=\alpha v^0$.
->
-> Now compute $-\eta(v,v)=(v^0)^2-\sum_{i=1}^3(v^i)^2$, so  
-> $$v^0=\sqrt{\,\sum_{i=1}^3(v^i)^2-\eta(v,v)\,}\ \ge\ \sqrt{-\eta(v,v)}.$$  
-> Multiplying by $\alpha=\sqrt{-\eta(u,u)}$ yields the inequality.
-> Equality forces $v^i=0$ for all $i$, hence $v$ is proportional to $e_0$, i.e. proportional to $u$,
-> and future-directed forces the proportionality constant to be positive.
+> Let $\alpha=\sqrt{-\eta(u,u)}>0$ and set $\hat u=u/\alpha$, so $\eta(\hat u,\hat u)=-1$. Choose an $\eta$-orthonormal basis $\{e_0,e_1,e_2,e_3\}$ with $e_0$ future-directed timelike and $\hat u=e_0$. Write $v=v^0e_0+\sum_{i=1}^3 v^i e_i$. Since $v$ is timelike, $-(v^0)^2+\sum_{i=1}^3 (v^i)^2<0$, hence $(v^0)^2>\sum_{i=1}^3 (v^i)^2$ and in particular $v^0\neq 0$. Future-directedness implies $v^0>0$.
+> 
+> Now $\eta(\hat u,v)=\eta(e_0,v)=-v^0$, so $-\eta(\hat u,v)=v^0$. Also
+> $$-\eta(v,v)=(v^0)^2-\sum_{i=1}^3 (v^i)^2 \le (v^0)^2,$$
+> hence $v^0\ge \sqrt{-\eta(v,v)}$.
+> 
+> Multiplying by $\alpha$ yields
+> $$-\eta(u,v)= -\eta(\alpha\hat u,v)=\alpha\cdot(-\eta(\hat u,v))=\alpha v^0 \ge \alpha\sqrt{-\eta(v,v)}=\sqrt{-\eta(u,u)}\sqrt{-\eta(v,v)}.$$
+> Equality forces $v^i=0$ for all $i$, hence $v$ is a positive multiple of $e_0=\hat u$.
 
-> [!abstract] Orthogonal Complements
-> Let $v\in\mathbb{R}^{1,3}$ be nonzero.  
-> 1. If $v$ is timelike, then $v^\perp:=\{w:\eta(v,w)=0\}$ is a $3$-dimensional Euclidean subspace (i.e. $\eta|_{v^\perp}$ is positive definite).  
-> 2. If $v$ is spacelike, then $v^\perp$ is a $3$-dimensional Lorentzian subspace (signature $(-,+,+)$).  
-> 3. If $v$ is null, then $v^\perp$ is degenerate and contains $v$ itself.
+> [!danger] Hyperbolic Angle and Relative Motion
+> For unit future-directed timelike vectors $u,v$, the inequality says $-\eta(u,v)\ge 1$. It is convenient to define the **hyperbolic angle** (rapidity) $\varphi\ge 0$ by
+> $$-\eta(u,v)=\cosh\varphi.$$
+> This number will become a coordinate-free measure of relative motion between observers.
+
+> [!abstract] Orthogonal Complements and Induced Metrics
+> Let $v\in\mathbb{R}^{1,3}$ be nonzero and define $v^\perp:=\{w\in\mathbb{R}^{1,3}:\eta(v,w)=0\}$.
+> 1. If $v$ is timelike, then $\eta$ restricts to a positive definite inner product on $v^\perp$.
+> 2. If $v$ is spacelike, then $\eta|_{v^\perp}$ has signature $(-,+,+)$.
+> 3. If $v$ is null, then $\eta|_{v^\perp}$ is degenerate and $v\in v^\perp$.
 
 > [!success] Proof
-> Choose an $\eta$-orthonormal basis adapted to $v$:
-> if $v$ is timelike, take $v=\alpha e_0$; if spacelike, take $v=\beta e_1$; if null, take a null frame.
-> Then the orthogonality condition $\eta(v,w)=0$ removes the corresponding component and the remaining restriction of $\eta$ has the stated signature; in the null case, degeneracy is immediate from $\eta(v,v)=0$ and $\eta(v,w)=0$ for $w=v$.
+> Choose an $\eta$-orthonormal basis adapted to $v$.
+> 
+> If $v$ is timelike, we may take $v=\alpha e_0$ with $\eta(e_0,e_0)=-1$ and $\eta(e_i,e_i)=+1$ for $i\ge 1$. Then $v^\perp=\mathrm{span}\{e_1,e_2,e_3\}$ and $\eta$ is positive definite there.
+> 
+> If $v$ is spacelike, take $v=\beta e_1$; then $v^\perp=\mathrm{span}\{e_0,e_2,e_3\}$ with signature $(-,+,+)$.
+> 
+> If $v$ is null, choose a null frame $(\ell,n,e_2,e_3)$ with $\eta(\ell,\ell)=\eta(n,n)=0$, $\eta(\ell,n)=-1$ and $\eta(e_i,e_i)=1$, and take $v=\ell$; then $\ell\in \ell^\perp$ and the restriction is degenerate.
 
-## Intervals and the Causal Relation in Minkowski Spacetime
+> [!danger] The Observer’s “Space”
+> If $U$ is a unit timelike vector, then $U^\perp$ is a Euclidean $3$-space with inner product $\eta|_{U^\perp}$. This is the clean mathematical model of an observer’s instantaneous rest space. On a curved spacetime $(M,g)$, the same construction produces a Euclidean inner product on $U^\perp\subset T_pM$.
 
-Let spacetime be the affine space $\mathbb{R}^{4}$ with the translation-invariant metric $\eta$.
-For events $p,q\in\mathbb{R}^{4}$, define the **displacement vector** $\Delta:=q-p\in\mathbb{R}^{1,3}$.
-Then $\eta(\Delta,\Delta)$ is the (signed) squared interval between $p$ and $q$.
+## Intervals and Causal Relations in Minkowski Spacetime
 
-> [!info] Causal Separation
-> Two events $p,q\in\mathbb{R}^{4}$ are called  
-> 1. **timelike separated** if $\eta(q-p,q-p)<0$,  
-> 2. **null separated** if $\eta(q-p,q-p)=0$ and $p\neq q$,  
-> 3. **spacelike separated** if $\eta(q-p,q-p)>0$.
+Now we switch to the affine viewpoint. Let $p,q$ be events in Minkowski spacetime. The displacement vector $q-p\in\mathbb{R}^{1,3}$ is well-defined by translation.
+
+> [!info] Squared Interval
+> For events $p,q\in\mathbb{R}^4$ we define the **squared interval**
+> $$s^2(p,q):=\eta(q-p,q-p).$$
+
+> [!info] Causal Separation of Events
+> Distinct events $p\neq q$ are called
+> 1. **timelike separated** if $s^2(p,q)<0$,
+> 2. **null separated** if $s^2(p,q)=0$,
+> 3. **spacelike separated** if $s^2(p,q)>0$.
+
+To connect this to the usual picture, write $q-p=(\Delta t,\Delta \mathbf{x})$. Then
+$$s^2(p,q)=-(\Delta t)^2+|\Delta\mathbf{x}|^2.$$
+Timelike separation means $|\Delta\mathbf{x}|<|\Delta t|$ (inside the light cone), null separation means $|\Delta\mathbf{x}|=|\Delta t|$ (on the light cone), and spacelike separation means $|\Delta\mathbf{x}|>|\Delta t|$ (outside).
 
 > [!info] Chronological and Causal Futures
-> For $p\in\mathbb{R}^{4}$, define  
-> $$I^+(p):=\{q:\ q-p\ \text{is future-directed timelike}\},\quad J^+(p):=\{q:\ q-p\ \text{is future-directed causal (timelike or null)}\},$$  
-> and similarly $I^-(p),J^-(p)$ with ``future'' replaced by ``past''.
+> For $p\in\mathbb{R}^4$ define
+> $$I^+(p):=\{q\in\mathbb{R}^4:q-p \text{ is future-directed timelike}\},\quad J^+(p):=\{q\in\mathbb{R}^4:q-p \text{ is future-directed causal}\},$$
+> and similarly $I^-(p),J^-(p)$ with “future” replaced by “past.”
 
-> [!danger] Remark
-> This is the prototype for causality theory on curved spacetimes:
-> in a Lorentzian manifold $(\mathcal{M},g)$, one defines $I^\pm(p),J^\pm(p)$ using timelike/null curves.
-> In Minkowski, translation makes the relation linear in $q-p$ and hence especially transparent.
+> [!abstract] Basic Topological Properties in Minkowski Spacetime
+> For each event $p$:
+> 1. $I^+(p)$ is open and $J^+(p)$ is closed.
+> 2. $\partial I^+(p)=\partial J^+(p)$ is the future null cone based at $p$.
 
-## Proper Time and Inertial Worldlines
+> [!success] Proof
+> The map $q\mapsto \eta(q-p,q-p)$ is continuous. Then $I^+(p)=\{q:\ \eta(q-p,q-p)<0,\ q^0>p^0\}$ is an intersection of two open sets, hence open. Similarly $J^+(p)=\{q:\ \eta(q-p,q-p)\le 0,\ q^0\ge p^0\}$ is an intersection of closed sets, hence closed. The boundary statement follows because $\eta(q-p,q-p)=0$ describes the null cone and separates the strict inequality from its complement.
 
-A future-directed timelike curve $\gamma$ represents the worldline of a massive observer.
+> [!danger] What Survives in Curved Spacetime
+> On a general Lorentzian manifold $(M,g)$ there is no global “$q-p$” vector. Instead, $I^\pm(p)$ and $J^\pm(p)$ are defined using future-directed timelike/causal **curves**. In Minkowski space, these curve-based definitions coincide with the simple translation-based formulas above.
 
-> [!info] Proper Time in Minkowski Spacetime
-> Let $\gamma:[a,b]\to\mathbb{R}^{4}$ be a piecewise $C^{1}$ future-directed timelike curve.
-> Its **proper time length** is  
-> $$\tau(\gamma):=\int_a^b \sqrt{-\eta(\dot\gamma(\lambda),\dot\gamma(\lambda))}\,d\lambda.$$  
-> If $\lambda=\tau$ is chosen so that $\sqrt{-\eta(\dot\gamma,\dot\gamma)}\equiv 1$, then $\tau$ is called
-> the **proper time parameter**.
+## Proper Time: Clocks, Worldlines, and Extremal Principles
+
+We now formalize the slogan: **the metric tells a clock what to read**. A massive particle traces a timelike worldline; the time measured by an ideal clock carried with the particle is the **proper time**.
+
+> [!info] Proper Time of a Timelike Curve
+> Let $\gamma:[a,b]\to\mathbb{R}^4$ be a piecewise $C^1$ future-directed timelike curve. Its proper time length is
+> $$\tau(\gamma):=\int_a^b \sqrt{-\eta(\dot\gamma(\lambda),\dot\gamma(\lambda))}\,d\lambda.$$
+> If $\lambda=\tau$ is chosen so that $\sqrt{-\eta(\dot\gamma,\dot\gamma)}\equiv 1$, then $\tau$ is called **proper time parameter**.
 
 > [!info] Four-Velocity and Four-Acceleration
-> For a timelike curve parameterized by proper time, the **four-velocity** is  
-> $$U:=\frac{d\gamma}{d\tau},\qquad\text{so that }\ \eta(U,U)=-1,$$  
-> and the **four-acceleration** is $A:=dU/d\tau$.
+> If $\gamma$ is parameterized by proper time, define the **four-velocity** $U$ and **four-acceleration** $A$ by
+> $$U:=\frac{d\gamma}{d\tau},\quad A:=\frac{dU}{d\tau}.$$
+> Then $\eta(U,U)=-1$ along the curve.
 
 > [!abstract] Four-Acceleration Is Orthogonal to Four-Velocity
-> For a proper-time-parameterized timelike curve, one has $\eta(A,U)=0$.
+> Along a proper-time-parameterized timelike curve one has $\eta(A,U)=0$.
 
 > [!success] Proof
-> Differentiate the identity $\eta(U,U)=-1$ with respect to $\tau$:  
+> Differentiate $\eta(U,U)=-1$ with respect to $\tau$:
 > $$0=\frac{d}{d\tau}\eta(U,U)=2\eta\left(\frac{dU}{d\tau},U\right)=2\eta(A,U).$$
 
-> [!abstract] Straight Timelike Segments Maximize Proper Time
-> Let $p,q\in\mathbb{R}^{4}$ with $q\in I^+(p)$ (timelike separated with $q$ to the future of $p$).
-> Among all piecewise $C^{1}$ future-directed timelike curves $\gamma$ with $\gamma(a)=p$, $\gamma(b)=q$,
-> the proper time $\tau(\gamma)$ is maximized by the straight segment  
-> $$\gamma_0(\lambda)=p+\lambda(q-p),\qquad \lambda\in[0,1],$$  
-> and in that case  
-> $$\tau(\gamma_0)=\sqrt{-\eta(q-p,q-p)}.$$
+This already has physical content: in the instantaneous rest space $U^\perp$, acceleration has no time component. In other words, “acceleration is spatial” once an observer is chosen.
+
+A second, deeper piece of physics is that inertial motion is characterized by an extremal property of the proper-time functional. This is the cleanest entrance to the variational viewpoint that will later produce the Einstein equation from an action.
+
+> [!abstract] Timelike Straight Lines Are Extremals of Proper Time
+> Fix events $p,q\in\mathbb{R}^4$ with $q\in I^+(p)$. Among all piecewise $C^1$ future-directed timelike curves $\gamma$ from $p$ to $q$, the proper time $\tau(\gamma)$ is extremized by timelike straight segments.
 
 > [!success] Proof
-> Parameterize any such curve by coordinate time $t=x^{0}$ (which is strictly increasing for
-> future-directed timelike curves). Write $\gamma(t)=(t,\mathbf{x}(t))$ with $\mathbf{x}\in\mathbb{R}^{3}$.
-> Then $\dot\gamma=(1,\dot{\mathbf{x}})$ and  
-> $$-\eta(\dot\gamma,\dot\gamma)=1-|\dot{\mathbf{x}}|^{2},$$  
-> so  
-> $$\tau(\gamma)=\int_{t_p}^{t_q}\sqrt{1-|\dot{\mathbf{x}}(t)|^{2}}\,dt.$$  
-> Use the elementary inequality $\sqrt{1-s^{2}}\le 1-\frac12 s^{2}$ for $|s|<1$ to get  
-> $$\tau(\gamma)\le \int_{t_p}^{t_q}\left(1-\frac12|\dot{\mathbf{x}}(t)|^{2}\right)\,dt.$$  
-> Hence  
-> $$\tau(\gamma)\le (t_q-t_p)-\frac12\int_{t_p}^{t_q}|\dot{\mathbf{x}}(t)|^{2}\,dt.$$  
-> Now apply Cauchy–Schwarz in $\mathbb{R}^{3}$:  
-> $$\left|\mathbf{x}(t_q)-\mathbf{x}(t_p)\right|^{2}=\left|\int_{t_p}^{t_q}\dot{\mathbf{x}}(t)\,dt\right|^{2}\le (t_q-t_p)\int_{t_p}^{t_q}|\dot{\mathbf{x}}(t)|^{2}\,dt,$$  
-> hence  
-> $$\int_{t_p}^{t_q}|\dot{\mathbf{x}}(t)|^{2}\,dt \ge \frac{\left|\Delta\mathbf{x}\right|^{2}}{\Delta t},\qquad \Delta t=t_q-t_p,\ \ \Delta\mathbf{x}=\mathbf{x}(t_q)-\mathbf{x}(t_p).$$  
-> Combining gives  
-> $$\tau(\gamma)\le \Delta t-\frac12\cdot \frac{|\Delta\mathbf{x}|^{2}}{\Delta t}.$$  
-> A sharper argument (e.g. Jensen's inequality applied to $\tau(\gamma)$ above, since $\sqrt{1-s^2}$
-> is concave on $[0,1)$) improves this to the optimal bound  
-> $$\tau(\gamma)\le \Delta t\sqrt{1-\left|\frac{\Delta\mathbf{x}}{\Delta t}\right|^{2}}=\sqrt{(\Delta t)^{2}-|\Delta\mathbf{x}|^{2}}=\sqrt{-\eta(q-p,q-p)}.$$  
-> Equality holds exactly when $\dot{\mathbf{x}}(t)$ is constant, i.e. $\mathbf{x}(t)$ is affine in $t$,
-> which is the straight segment $\gamma_0$.
+> Write $\gamma(\lambda)=(t(\lambda),\mathbf{x}(\lambda))$. Since $\gamma$ is future-directed timelike, $t$ is strictly increasing; reparameterize by coordinate time so that $\lambda=t$. Then $\gamma(t)=(t,\mathbf{x}(t))$ with $|\mathbf{x}'(t)|<1$, and
+> $$\tau(\gamma)=\int_{t_p}^{t_q} \sqrt{1-|\mathbf{x}'(t)|^2}\,dt.$$
+> The Euler–Lagrange equation for the Lagrangian $L(\mathbf{x},\mathbf{x}')=\sqrt{1-|\mathbf{x}'|^2}$ gives
+> $$\frac{d}{dt}\left(\frac{\mathbf{x}'(t)}{\sqrt{1-|\mathbf{x}'(t)|^2}}\right)=0,$$
+> hence $\mathbf{x}'(t)$ is constant and $\mathbf{x}(t)$ is affine. Therefore $\gamma$ is a straight segment in spacetime.
 
-> [!danger] Remark
-> In Euclidean geometry straight lines **minimize** length locally; in Lorentzian geometry, timelike
-> geodesics **maximize** proper time locally. This sign reversal is at the heart of many later phenomena,
-> including focusing and singularity theorems.
+In Minkowski space one can say more: straight timelike segments do not merely extremize proper time; they **maximize** it. This is the mathematical core of the twin paradox (and later, of focusing and conjugate points in curved spacetimes).
 
-## Lorentz Transformations and Boosts
+> [!abstract] Timelike Straight Segments Maximize Proper Time
+> Let $p,q\in\mathbb{R}^4$ with $q\in I^+(p)$. For any piecewise $C^1$ future-directed timelike curve $\gamma$ from $p$ to $q$,
+> $$\tau(\gamma)\le \sqrt{-\eta(q-p,q-p)}.$$
+> Equality holds iff $\gamma$ is a reparameterized timelike straight segment.
+
+> [!success] Proof
+> As above, parameterize by $t=x^0$ so that
+> $$\tau(\gamma)=\int_{t_p}^{t_q}\sqrt{1-|\mathbf{x}'(t)|^2}\,dt.$$
+> The function $f(s)=\sqrt{1-s^2}$ is concave on $[0,1)$. By Jensen’s inequality,
+> $$\frac{1}{t_q-t_p}\int_{t_p}^{t_q} f(|\mathbf{x}'(t)|)\,dt \le f\!\left(\frac{1}{t_q-t_p}\int_{t_p}^{t_q}|\mathbf{x}'(t)|\,dt\right).$$
+> Since $\int |\mathbf{x}'(t)|\,dt \ge \left|\int \mathbf{x}'(t)\,dt\right|=|\mathbf{x}(t_q)-\mathbf{x}(t_p)|$, we obtain
+> $$\tau(\gamma)\le (t_q-t_p)\sqrt{1-\left|\frac{\mathbf{x}(t_q)-\mathbf{x}(t_p)}{t_q-t_p}\right|^2}=\sqrt{(t_q-t_p)^2-|\mathbf{x}(t_q)-\mathbf{x}(t_p)|^2}=\sqrt{-\eta(q-p,q-p)}.$$
+> Equality forces $|\mathbf{x}'(t)|$ to be constant and $\mathbf{x}'(t)$ to have constant direction, hence $\mathbf{x}(t)$ affine.
+
+> [!example] Twin Paradox in One Inequality
+> Two timelike curves connect the same endpoints $p$ and $q$: one is inertial (straight), the other involves a turnaround (non-straight). The proposition says the inertial observer experiences strictly more proper time. The “paradox” disappears because the non-inertial path is not related to the inertial one by a symmetry of Minkowski space.
+
+## Lorentz Transformations: Why Boosts Look the Way They Do
+
+We now turn to symmetries. A change of inertial coordinates should preserve the causal structure (light cones) and the proper-time functional. In Minkowski space, this translates into preserving the bilinear form $\eta$.
 
 > [!info] Lorentz Group
-> The **Lorentz group** is  
-> $$O(1,3):=\{\Lambda\in GL(4,\mathbb{R}):\ \Lambda^{T}\eta\,\Lambda=\eta\}.$$  
-> The subgroup preserving time orientation and spatial orientation is denoted $SO^{+}(1,3)$.
+> The **Lorentz group** is
+> $$O(1,3):=\{\Lambda\in GL(4,\mathbb{R}) : \Lambda^T\eta\Lambda=\eta\}.$$
 
-> [!abstract] Interval Invariance
-> If $\Lambda\in O(1,3)$, then $\eta(\Lambda v,\Lambda w)=\eta(v,w)$ for all $v,w\in\mathbb{R}^{1,3}$.
-> In particular, $\eta(\Lambda v,\Lambda v)=\eta(v,v)$, so causal character is preserved.
+> [!abstract] Preservation of Intervals and Causal Character
+> If $\Lambda\in O(1,3)$ then $\eta(\Lambda v,\Lambda w)=\eta(v,w)$ for all $v,w$. In particular, $\eta(v,v)$ and its sign are preserved, so timelike/null/spacelike vectors remain timelike/null/spacelike.
 
 > [!success] Proof
-> This is the matrix identity $\Lambda^{T}\eta\Lambda=\eta$ rewritten:  
-> $$\eta(\Lambda v,\Lambda w)=v^{T}\Lambda^{T}\eta\Lambda w=v^{T}\eta w=\eta(v,w).$$
+> Rewrite $\Lambda^T\eta\Lambda=\eta$ as $\eta(\Lambda v,\Lambda w)=\eta(v,w)$ by expanding both sides in coordinates.
 
-A particularly important one-parameter family is the ****boost**** in the $x^{1}$-direction.
+To make contact with familiar formulas, consider a boost in the $x^1$-direction. Introduce a parameter $\beta\in(-1,1)$ and set $\gamma=(1-\beta^2)^{-1/2}$. Define
+$$\Lambda(\beta)=\begin{pmatrix}\gamma & -\gamma\beta & 0 & 0\\ -\gamma\beta & \gamma & 0 & 0\\ 0&0&1&0\\ 0&0&0&1\end{pmatrix}.$$
 
-> [!abstract] Standard Boost and Rapidity
-> For $\beta\in(-1,1)$, set $\gamma:=(1-\beta^{2})^{-1/2}$ and define  
-> $$\Lambda(\beta):=\begin{pmatrix}\gamma & -\gamma\beta & 0 & 0\\ -\gamma\beta & \gamma & 0 & 0\\ 0&0&1&0\\ 0&0&0&1\end{pmatrix}.$$  
-> Then $\Lambda(\beta)\in SO^{+}(1,3)$ and preserves $\eta$.
-> Moreover, introducing the **rapidity** $\varphi\in\mathbb{R}$ by $\beta=\tanh\varphi$ yields  
-> $$\gamma=\cosh\varphi,\qquad \gamma\beta=\sinh\varphi,$$  
-> so that  
-> $$\Lambda(\varphi)=\begin{pmatrix}\cosh\varphi & -\sinh\varphi & 0 & 0\\ -\sinh\varphi & \cosh\varphi & 0 & 0\\ 0&0&1&0\\ 0&0&0&1\end{pmatrix}.$$
+> [!abstract] Standard Boost Is Lorentz
+> $\Lambda(\beta)\in O(1,3)$ for every $\beta\in(-1,1)$.
 
 > [!success] Proof
-> A direct multiplication verifies $\Lambda(\beta)^{T}\eta\Lambda(\beta)=\eta$; equivalently one checks
-> the $2\times 2$ block  
-> $$\begin{pmatrix}\gamma&-\gamma\beta\\ -\gamma\beta&\gamma\end{pmatrix}$$  
-> preserves the quadratic form $-(dx^{0})^{2}+(dx^{1})^{2}$, which amounts to $\gamma^{2}(1-\beta^{2})=1$.
-> For the rapidity identities, recall $\cosh^{2}\varphi-\sinh^{2}\varphi=1$ and
-> $\tanh\varphi=\sinh\varphi/\cosh\varphi$, so $1-\tanh^{2}\varphi=\mathrm{sech}^{2}\varphi$ and hence
-> $\gamma=(1-\beta^{2})^{-1/2}=\cosh\varphi$ with $\gamma\beta=\sinh\varphi$.
+> A direct multiplication shows $\Lambda(\beta)^T\eta\Lambda(\beta)=\eta$. Equivalently, it suffices to check the $2\times 2$ block preserves $-(dx^0)^2+(dx^1)^2$, which holds because $\gamma^2(1-\beta^2)=1$.
+
+> [!danger] Rapidity and Hyperbolic Rotations
+> Define the **rapidity** $\varphi\in\mathbb{R}$ by $\beta=\tanh\varphi$. Then $\gamma=\cosh\varphi$ and $\gamma\beta=\sinh\varphi$, and the boost becomes a hyperbolic rotation in the $(x^0,x^1)$-plane:
+> $$\begin{pmatrix}\bar x^0\\ \bar x^1\end{pmatrix}=\begin{pmatrix}\cosh\varphi&-\sinh\varphi\\ -\sinh\varphi&\cosh\varphi\end{pmatrix}\begin{pmatrix}x^0\\ x^1\end{pmatrix}.$$
+> This is not a stylistic trick: it linearizes composition.
 
 > [!abstract] Composition Law and Velocity Addition
-> Boosts add in rapidity:  
-> $$\Lambda(\varphi_{1})\Lambda(\varphi_{2})=\Lambda(\varphi_{1}+\varphi_{2}).$$  
-> Equivalently, in terms of $\beta=\tanh\varphi$,  
-> $$\beta_{12}=\frac{\beta_{1}+\beta_{2}}{1+\beta_{1}\beta_{2}}.$$
+> Boosts add in rapidity:
+> $$\Lambda(\varphi_1)\Lambda(\varphi_2)=\Lambda(\varphi_1+\varphi_2).$$
+> Equivalently, in terms of $\beta=\tanh\varphi$, the induced velocity-addition law is
+> $$\beta_{12}=\frac{\beta_1+\beta_2}{1+\beta_1\beta_2}.$$
 
 > [!success] Proof
-> Multiply the $2\times 2$ hyperbolic-rotation blocks in $\Lambda(\varphi)$ and use $\cosh(\varphi_{1}+\varphi_{2})=\cosh\varphi_{1}\cosh\varphi_{2}+\sinh\varphi_{1}\sinh\varphi_{2}$ and the analogous identity for $\sinh$.
-> Then $\tanh(\varphi_{1}+\varphi_{2})$ gives the velocity-addition formula.
+> The rapidity formula follows from the addition identities for $\cosh$ and $\sinh$. Applying $\tanh$ to $\varphi_1+\varphi_2$ gives the velocity-addition law.
 
-## Observers and the “Rest Frame”
+## Classical Kinematic Effects as Computations
 
-> [!info] Inertial Observer and Rest Frame
-> An **inertial observer** in Minkowski spacetime is a timelike straight worldline
-> $\gamma(\tau)=p+\tau U$ with constant future-directed unit timelike vector $U$.
-> A coordinate system in which $U=(1,0,0,0)$ is called the observer's **rest frame**.
+Once boosts are understood as Lorentz transformations, time dilation, length contraction, and relativity of simultaneity are not separate postulates; they are algebra.
 
-> [!abstract] Any Future Timelike Vector Can Be Boosted to Rest
-> Let $U$ be future-directed timelike. Then there exists $\Lambda\in SO^{+}(1,3)$ such that
-> $\Lambda U=(\sqrt{-\eta(U,U)},0,0,0)$.
-> In particular, if $U$ is unit timelike, then $\Lambda U=(1,0,0,0)$.
+Write the boost in coordinates as
+$$\bar t=\gamma(t-\beta x),\quad \bar x=\gamma(x-\beta t),\quad \bar y=y,\quad \bar z=z.$$
+
+> [!abstract] Time Dilation
+> If a clock is at rest in the barred frame (so $\Delta\bar x=\Delta\bar y=\Delta\bar z=0$), then
+> $$\Delta t=\gamma\,\Delta\bar t.$$
 
 > [!success] Proof
-> Write $U=(U^{0},\mathbf{U})$ with $\mathbf{U}\in\mathbb{R}^{3}$ and $U^{0}>0$.
-> Timelike means $(U^{0})^{2}>|\mathbf{U}|^{2}$.
-> If $\mathbf{U}=0$ there is nothing to prove. Otherwise, rotate spatial coordinates so that
-> $\mathbf{U}$ points along the $x^{1}$-axis, i.e. $\mathbf{U}=(U^{1},0,0)$ with $U^{1}\neq 0$.
-> Apply the boost with $\beta=U^{1}/U^{0}$ (note $|\beta|<1$).
-> A direct computation gives  
-> $$(\Lambda(\beta)U)^{1}=\gamma(U^{1}-\beta U^{0})=0,$$  
-> and  
-> $$(\Lambda(\beta)U)^{0}=\gamma(U^{0}-\beta U^{1})=\sqrt{(U^{0})^{2}-(U^{1})^{2}}=\sqrt{-\eta(U,U)}. $$
+> From $\Delta\bar x=\gamma(\Delta x-\beta\Delta t)=0$ we get $\Delta x=\beta\Delta t$. Then
+> $$\Delta\bar t=\gamma(\Delta t-\beta\Delta x)=\gamma(\Delta t-\beta^2\Delta t)=\gamma(1-\beta^2)\Delta t=\Delta t/\gamma.$$
 
-## Outlook: From Flat to Curved
+> [!abstract] Relativity of Simultaneity
+> If two events are simultaneous in the barred frame (so $\Delta\bar t=0$), then their time separation in the unbarred frame is
+> $$\Delta t=\beta\,\Delta x.$$
 
-Minkowski spacetime is the **local model** for general relativity: a curved spacetime
-$(\mathcal{M},g)$ is a smooth manifold with a Lorentzian metric $g$ such that, at each point $p\in\mathcal{M}$,
-the tangent space $(T_{p}\mathcal{M},g_{p})$ is isometric to $(\mathbb{R}^{1,3},\eta)$.
-Many notions above (timelike/null/spacelike, time orientation, proper time, Lorentz frames)
-are therefore **pointwise** definitions on any Lorentzian manifold.
+> [!success] Proof
+> $\Delta\bar t=\gamma(\Delta t-\beta\Delta x)=0$ implies $\Delta t=\beta\Delta x$.
 
-Starting next lecture we will use this flat model to motivate the geometric structures
-needed to talk about curvature and gravitation: connections, geodesics, and ultimately the
-Einstein equation.
+> [!abstract] Length Contraction
+> Let a rigid rod be at rest in the barred frame with rest length $L_0$, meaning that two events on the rod’s endpoints satisfy $\Delta\bar t=0$ and $\Delta\bar x=L_0$. Then the length measured in the unbarred frame at unbarred simultaneity ($\Delta t=0$) is
+> $$L=\frac{L_0}{\gamma}.$$
+
+> [!success] Proof
+> Unbarred simultaneity means $\Delta t=0$. Then $\Delta\bar x=\gamma(\Delta x-\beta\Delta t)=\gamma\Delta x$, so $\Delta x=\Delta\bar x/\gamma=L_0/\gamma$.
+
+> [!danger] Remark
+> These three computations illustrate a theme that will persist in curved spacetime: “what is measured” is always tied to a choice of observer, and the observer enters through a timelike direction.
+
+## Observers and the Rest Frame as Geometry
+
+> [!info] Observer at an Event
+> An **observer** at an event is a future-directed **unit** timelike vector $U\in\mathbb{R}^{1,3}$, i.e. $\eta(U,U)=-1$ and $U^0>0$.
+
+The normalization $\eta(U,U)=-1$ is the statement that $U$ is a four-velocity: it is the tangent vector to a worldline parameterized by proper time.
+
+> [!abstract] Rest Space
+> Let $U$ be a unit timelike vector. Then the orthogonal complement
+> $$U^\perp=\{W\in\mathbb{R}^{1,3}:\eta(U,W)=0\}$$
+> is a three-dimensional Euclidean vector space with inner product $\eta|_{U^\perp}$.
+
+> [!success] Proof
+> This is the timelike case of the orthogonal-complement proposition proved earlier.
+
+> [!danger] What Is a “Rest Frame”?
+> A rest frame is not fundamentally a coordinate system; it is the choice of an observer $U$. Once $U$ is fixed, the observer’s instantaneous space is $U^\perp$, and any orthonormal basis of $U^\perp$ completes $U$ to an $\eta$-orthonormal frame. Choosing coordinates adapted to this frame produces the usual “$U=(1,0,0,0)$” description, but the underlying object is $U$ itself.
+
+> [!abstract] Any Observer Can Be Boosted to Rest
+> Let $U$ be a future-directed unit timelike vector. Then there exists $\Lambda\in O(1,3)$ preserving time orientation such that
+> $$\Lambda U=(1,0,0,0).$$
+
+> [!success] Proof
+> Write $U=(U^0,\mathbf{U})$. Since $\eta(U,U)=-1$, we have $(U^0)^2-|\mathbf{U}|^2=1$ and $U^0>0$.
+> 
+> Choose a spatial rotation $R\in SO(3)$ sending $\mathbf{U}$ to $(|\mathbf{U}|,0,0)$ and extend it to a Lorentz transformation that acts trivially on $x^0$. After this rotation, $U$ has the form $(U^0,|\mathbf{U}|,0,0)$.
+> 
+> Let $\beta=|\mathbf{U}|/U^0\in(0,1)$ and apply the standard boost $\Lambda(\beta)$ in the $x^1$ direction. A direct computation gives $\Lambda(\beta)U=(1,0,0,0)$.
+
+## A First Taste of “Measurement” in Invariant Language
+
+Even in flat spacetime, the cleanest way to phrase physical statements is not in terms of coordinate components but in terms of contractions with $U$. This becomes essential on curved spacetimes where there is no global inertial coordinate system.
+
+> [!info] Energy and Frequency Measured by an Observer (Preview)
+> Let $U$ be an observer (unit future timelike vector).
+> 1. If $P$ is a future-directed timelike vector (think: four-momentum), define the energy measured by $U$ as $$E_U(P):=-\eta(P,U).$$
+> 2. If $K$ is a future-directed null vector (think: wave vector of light), define the angular frequency measured by $U$ as $$\omega_U(K):=-\eta(K,U).$$
+
+> [!danger] Remark
+> In the rest frame of $U$ one has $U=(1,0,0,0)$, so $E_U(P)=P^0$ and $\omega_U(K)=K^0$. The advantage of the contraction definition is that it is coordinate-free and immediately generalizes to curved spacetime by replacing $\eta$ with $g$.
+
+In this lecture we set up Minkowski spacetime as a Lorentzian model where the metric determines both causal structure (light cones) and clock readings (proper time). We also fixed the basic vocabulary of timelike/null/spacelike directions and the observer viewpoint that will persist throughout GR. Next we make these ideas computational by studying Lorentz transformations, rapidity, and how observers extract measurable quantities from tensors.
