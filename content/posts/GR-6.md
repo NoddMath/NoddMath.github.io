@@ -1,277 +1,166 @@
 +++
 date = "2025-02-24T15:44:10-04:00"
 draft = false
-title = "Geodesics and Variational Principles"
+title = "Levi-Civita Connection and Geodesics: Three Equivalent Characterizations"
 categories = [ "Math", "Others" ]
 ShowToc = true
 tags = [ "General Relativity", "Differential Geometry" ]
 +++
 
-In special relativity, “free motion” means straight worldlines in Minkowski space: a particle that feels no non-gravitational forces has constant four-velocity. General relativity keeps the same physical idea (no force $\Rightarrow$ inertial motion), but changes the stage: spacetime is now a Lorentzian manifold $(M,g)$, and there is no globally preferred notion of “constant vector” because tangent spaces at different points are different vector spaces.
+In Part I we met the free particle as a curve that extremizes proper time, and in Lecture 2.1 we learned how to erase gravity to first order by choosing local inertial frames. Now we build the engine that makes those statements coordinate-free: the Levi-Civita connection and geodesics.
 
-The Levi-Civita connection $\nabla$ is the device that repairs this: it tells us how to compare tangent vectors at nearby points. The slogan “dynamics is geometry” becomes a concrete statement:
+The physics slogan is “free fall = straightest possible motion.” The mathematical question is: **what does “straightest” mean on a curved Lorentzian manifold?** It turns out there are three answers, and the point of this lecture is that they are the same answer.
 
-> [!important] Free Fall as Geometry
-> A freely falling particle moves along a geodesic of the Levi-Civita connection of $g$.
+## Levi-Civita connection: what we keep from Riemannian geometry
 
-This lecture has two intertwined goals. First we define geodesics intrinsically using $\nabla$ and explain the subtle (but physically crucial) role of parameters. Then we show how the same curves arise from variational principles: an “energy” functional that automatically selects affine parameters, and a reparameterization-invariant “length/proper time” functional whose Euler–Lagrange equation is geodesic motion up to reparameterization. Along the way we isolate the Lorentzian features (proper time, null curves) that make GR feel different from Riemannian geometry even when the formulas look similar.
+Let $(M,g)$ be a Lorentzian manifold, time-oriented, with signature $(-,+,+,+)$.
 
-## Differentiation Along a Curve: What $\frac{D}{dt}$ Really Means
-
-Let $(M,g)$ be a semi-Riemannian manifold and let $\nabla$ be its Levi-Civita connection.
-
-> [!info] Vector Field Along a Curve
-> Let $\gamma:I\to M$ be a $C^1$ curve. A **vector field along $\gamma$** is a map $V:I\to TM$ such that $V(t)\in T_{\gamma(t)}M$ for all $t\in I$.
-
-One should read a vector field along $\gamma$ as “a tangent vector attached to each point of the worldline,” not as a vector field on an open set. To differentiate such an object intrinsically we use $\nabla$.
-
-> [!info] Covariant Derivative Along a Curve
-> Let $\gamma:I\to M$ be $C^1$ and let $V$ be a $C^1$ vector field along $\gamma$. Fix $t_0\in I$. Choose an open neighborhood $U$ of $\gamma(t_0)$ and extend $V$ to a genuine vector field $\widetilde V\in \mathfrak{X}(U)$ such that $\widetilde V(\gamma(t))=V(t)$ for $t$ near $t_0$. Define
-> $$\left.\frac{DV}{dt}\right|_{t=t_0}:=\left.(\nabla_{\dot\gamma}\widetilde V)\right|_{\gamma(t_0)}\in T_{\gamma(t_0)}M.$$
-
-> [!abstract] Well-Definedness of $\frac{DV}{dt}$
-> The above definition is independent of the choice of extension $\widetilde V$. Hence $\frac{DV}{dt}$ is intrinsically defined by $\nabla$.
+> [!note] Fundamental theorem of (pseudo-)Riemannian geometry
+> There exists a unique connection $\nabla$ on $TM$ such that
+> 1. **torsion-free**: $\nabla_X Y - \nabla_Y X = [X,Y]$ for all vector fields $X,Y$;
+> 2. **metric-compatible**: $X(g(Y,Z)) = g(\nabla_X Y, Z)+g(Y,\nabla_X Z)$ for all $X,Y,Z$.
+> 
+> This $\nabla$ is the **Levi-Civita connection** of $g$.
 
 > [!success] Proof
-> Let $\widetilde V_1$ and $\widetilde V_2$ be two extensions near $\gamma(t_0)$ and set $W:=\widetilde V_1-\widetilde V_2$. Then $W(\gamma(t))=0$ for $t$ near $t_0$. In particular, $W=f\,Y$ near $\gamma(t_0)$ where $f$ vanishes on the image of $\gamma$ and $Y$ is some smooth vector field (choose local coordinates and take $f$ to be the sum of squares of the components of $W$). Using $C^\infty$-linearity of $\nabla$ in its first slot and Leibniz in the second slot,
-> $$\nabla_{\dot\gamma}(fY)=\dot\gamma(f)\,Y+f\,\nabla_{\dot\gamma}Y.$$
-> Evaluating at $\gamma(t_0)$, both terms vanish because $f(\gamma(t_0))=0$ and also $\dot\gamma(f)(t_0)=\frac{d}{dt}(f(\gamma(t)))|_{t=t_0}=0$. Thus $(\nabla_{\dot\gamma}W)|_{\gamma(t_0)}=0$, so $(\nabla_{\dot\gamma}\widetilde V_1)|_{\gamma(t_0)}=(\nabla_{\dot\gamma}\widetilde V_2)|_{\gamma(t_0)}$.
+> Same as in the Riemannian case: the Koszul formula  
+> $$2g(\nabla_X Y,Z)=Xg(Y,Z)+Yg(Z,X)-Zg(X,Y)-g(X,[Y,Z])+g(Y,[Z,X])+g(Z,[X,Y])$$  
+> defines $\nabla$ uniquely and verifies torsion-freeness and metric-compatibility.
 
-The coordinate formula is still indispensable for actual calculations.
+> [!danger] Remark
+> Nothing in the existence/uniqueness uses positive definiteness. What changes in Lorentzian geometry is not the connection but the causal interpretation of the objects it differentiates.
 
-> [!abstract] Coordinate Expression for $\frac{DV}{dt}$
-> Let $(x^i)$ be local coordinates near $\gamma(I)$ and write
-> $$\dot\gamma(t)=\dot x^i(t)\,\partial_i\big|_{\gamma(t)},\quad V(t)=V^j(t)\,\partial_j\big|_{\gamma(t)}.$$
-> If $\Gamma^k{}_{ij}$ are the Christoffel symbols of $\nabla$ in these coordinates, then
-> $$\frac{DV}{dt}=\left(\frac{dV^k}{dt}+\Gamma^k{}_{ij}(\gamma(t))\,\dot x^i(t)\,V^j(t)\right)\partial_k\big|_{\gamma(t)}.$$
+In local coordinates $(x^\mu)$, the Christoffel symbols are still
+$$\Gamma^\rho{}_{\mu\nu}=\frac12 g^{\rho\sigma}\bigl(\partial_\mu g_{\nu\sigma}+\partial_\nu g_{\mu\sigma}-\partial_\sigma g_{\mu\nu}\bigr),$$
+and the covariant derivative of a vector field $V=V^\rho\partial_\rho$ is
+$$(\nabla_\mu V)^\rho=\partial_\mu V^\rho + \Gamma^\rho{}_{\mu\sigma}V^\sigma.$$
 
-> [!success] Proof
-> Extend $V^j(t)$ to functions $V^j(x)$ near $\gamma(I)$ and consider $\widetilde V=V^j\partial_j$. Then
-> $$\nabla_{\dot\gamma}\widetilde V=\dot x^i\,\nabla_{\partial_i}(V^j\partial_j)=\dot x^i\left((\partial_i V^j)\partial_j+V^j\nabla_{\partial_i}\partial_j\right)=\left(\dot x^i\partial_i V^k+\Gamma^k{}_{ij}\dot x^i V^j\right)\partial_k.$$
-> Along $\gamma(t)$ we have $\dot x^i\partial_i V^k=\frac{d}{dt}(V^k(\gamma(t)))=\frac{dV^k}{dt}$, yielding the formula.
+## Geodesics as autoparallels: “parallel transport your velocity”
 
-> [!danger] Connection Coefficients Are Not Forces
-> What should feel conceptually solid is this: $\Gamma^k{}_{ij}$ are not “extra forces.” They are coordinate data for the connection. When you change coordinates, they change in a complicated way precisely so that the geometric object $\frac{DV}{dt}$ stays the same.
+> [!info] Geodesic (autoparallel) equation
+> A smooth curve $\gamma:I\to M$ is a **geodesic** if its tangent vector $u=\dot\gamma$ satisfies
+> $$\nabla_u u = 0.$$
+> If $\gamma$ is timelike, we typically parametrize it by proper time so that $g(u,u)=-1$.
 
-## Geodesics as Inertial Motion and the Meaning of Affine Parameters
+> [!danger] Remark
+> If $\gamma$ is a geodesic and $\lambda$ is an affine parameter, then in coordinates the equation reads
+> $$\frac{d^2 x^\rho}{d\lambda^2}+\Gamma^\rho{}_{\mu\nu}\frac{dx^\mu}{d\lambda}\frac{dx^\nu}{d\lambda}=0.$$
+> If you choose a non-affine parameter, a spurious term proportional to $dx^\rho/d\lambda$ appears. For timelike geodesics, proper time is the canonical affine parameter.
 
-> [!info] Geodesic
-> A $C^2$ curve $\gamma:I\to M$ is a **geodesic** (for $\nabla$) if its tangent is parallel along itself:
-> $$\frac{D\dot\gamma}{dt}=0.$$
-
-Physically: $\dot\gamma$ is the velocity field of the worldline. The equation $\frac{D\dot\gamma}{dt}=0$ says “the acceleration is zero once you compare nearby velocities using $\nabla$.” In curved spacetime this is the correct replacement for “constant four-velocity.”
-
-> [!abstract] Geodesic Equation in Coordinates
-> In local coordinates $x^k(t)$, the geodesic condition is the second-order ODE system
-> $$\ddot x^k+\Gamma^k{}_{ij}(x)\,\dot x^i\dot x^j=0.$$
+> [!abstract] Constant norm along affine geodesics
+> If $\gamma$ satisfies $\nabla_u u=0$, then $g(u,u)$ is constant along $\gamma$.
 
 > [!success] Proof
-> Apply the coordinate expression for $\frac{D}{dt}$ to $V=\dot\gamma$ and read off the coefficients of $\partial_k$.
+> Using metric compatibility,
+> $$\frac{d}{d\lambda}g(u,u)=u\bigl(g(u,u)\bigr)=2g(\nabla_u u,u)=0.$$
 
-A geodesic is a **curve in $M$**, but the equation above refers to a **parameter**. This is not a pedantic point: in relativity we constantly reparameterize curves (coordinate time, proper time, affine parameters, and so on), and a parameter choice can hide or reveal structure.
+## Geodesics from the action: extremizing proper time (or energy)
 
-> [!info] Affine Parameter
-> A parameter $t$ on a geodesic $\gamma$ is called **affine** if $\gamma$ satisfies $\frac{D\dot\gamma}{dt}=0$ in that parameter, equivalently if it satisfies the coordinate ODE $\ddot x^k+\Gamma^k{}_{ij}\dot x^i\dot x^j=0$.
+The variational viewpoint is the one we already met in Minkowski space, and it generalizes cleanly.
 
-> [!abstract] Reparameterization and the Non-Affine Geodesic Equation
-> Let $\gamma:I\to M$ be $C^2$ and let $\phi:J\to I$ be a $C^2$ diffeomorphism with $\phi'>0$. Set $\widetilde\gamma:=\gamma\circ\phi$ and use $\tau$ as the parameter on $J$. Then
-> $$\frac{D\dot{\widetilde\gamma}}{d\tau}=\phi'(\tau)^2\,\left(\frac{D\dot\gamma}{dt}\right)\Big|_{t=\phi(\tau)}+\phi''(\tau)\,\dot\gamma\big(\phi(\tau)\big).$$
-> In particular, if $\gamma$ is an affine geodesic, then $\widetilde\gamma$ is an affine geodesic if and only if $\phi''\equiv 0$, i.e. $\phi(\tau)=a\tau+b$ with $a\neq 0$. More generally, a reparameterization of an affine geodesic satisfies
-> $$\frac{D\dot\gamma}{dt}=f(t)\,\dot\gamma$$
-> for some scalar function $f$.
+> [!info] Length and energy functionals
+> Let $\gamma:[\lambda_1,\lambda_2]\to M$ be a smooth timelike curve. Define the proper time (Lorentzian length)
+> $$\mathcal{T}[\gamma]:=\int_{\lambda_1}^{\lambda_2}\sqrt{-\,g(\dot\gamma,\dot\gamma)}\,d\lambda.$$
+> If $\gamma$ is timelike, we may also consider the **energy functional**
+> $$\mathcal{E}[\gamma]:=\frac12\int_{\lambda_1}^{\lambda_2} g(\dot\gamma,\dot\gamma)\,d\lambda,$$
+> which differs from $\mathcal{T}$ by reparametrization issues but yields the same unparametrized geodesics.
 
-> [!success] Proof
-> Write $t=\phi(\tau)$. Then $\dot{\widetilde\gamma}=\frac{d}{d\tau}\gamma(\phi(\tau))=\phi'(\tau)\dot\gamma$. Covariantly differentiate:
-> $$\frac{D\dot{\widetilde\gamma}}{d\tau}=\frac{D}{d\tau}(\phi'\dot\gamma)=\phi''\dot\gamma+\phi'\frac{D\dot\gamma}{d\tau}.$$
-> But $\frac{D\dot\gamma}{d\tau}=\frac{dt}{d\tau}\frac{D\dot\gamma}{dt}=\phi'\frac{D\dot\gamma}{dt}$, giving the formula. If $\frac{D\dot\gamma}{dt}=0$, the condition for $\frac{D\dot{\widetilde\gamma}}{d\tau}=0$ is exactly $\phi''=0$. The “non-affine” form follows by solving for $\frac{D\dot\gamma}{dt}$ after a general parameter change.
+> [!danger] Remark
+> For Riemannian metrics, length minimizers are geodesics. For Lorentzian metrics, timelike geodesics are stationary points of $\mathcal{T}$, and in suitable circumstances they locally **maximize** $\mathcal{T}$. The action principle cares about stationarity; the “max vs min” story is global and depends on conjugate points.
 
-> [!danger] Parallel Acceleration Is Parameter, Not Force
-> The equation $\frac{D\dot\gamma}{dt}=f(t)\dot\gamma$ should be read as “the acceleration is parallel to the velocity.” This does not bend the curve in spacetime; it only changes how fast you move along it. In practice, many convenient parameters in GR are non-affine, so this parallel-acceleration term appears constantly and must not be mistaken for a physical force.
-
-## Constant Speed, Proper Time, and What Makes Null Curves Special
-
-> [!abstract] Constant Speed Along Affine Geodesics
-> If $\gamma$ is an affinely parameterized geodesic, then
-> $$\frac{d}{dt}\,g(\dot\gamma,\dot\gamma)=0.$$
-> In particular, $g(\dot\gamma,\dot\gamma)$ is constant, so the causal character (timelike/null/spacelike) of $\dot\gamma$ cannot change along an affine geodesic.
+> [!note] Geodesics as stationary curves of proper time
+> Let $\gamma$ be a smooth timelike curve with fixed endpoints. If $\gamma$ is a stationary point of $\mathcal{T}$, then (after reparametrization by proper time) it satisfies the geodesic equation $\nabla_{\dot\gamma}\dot\gamma=0$. Conversely, any timelike geodesic parametrized by proper time is stationary for $\mathcal{T}$.
 
 > [!success] Proof
-> Metric compatibility gives
-> $$\frac{d}{dt}g(\dot\gamma,\dot\gamma)=(\nabla_{\dot\gamma}g)(\dot\gamma,\dot\gamma)+2\,g\!\left(\nabla_{\dot\gamma}\dot\gamma,\dot\gamma\right)=2\,g\!\left(\frac{D\dot\gamma}{dt},\dot\gamma\right).$$
-> If $\frac{D\dot\gamma}{dt}=0$, the derivative vanishes.
+> Write the Lagrangian
+> $$L(x,\dot x)=\sqrt{-\,g_{\mu\nu}(x)\dot x^\mu\dot x^\nu}.$$
+> Stationarity gives the Euler--Lagrange equations
+> $$\frac{d}{d\lambda}\left(\frac{\partial L}{\partial \dot x^\rho}\right)-\frac{\partial L}{\partial x^\rho}=0.$$
+> A standard computation yields
+> $$\frac{\partial L}{\partial \dot x^\rho} = -\frac{g_{\rho\nu}\dot x^\nu}{\sqrt{-g(\dot x,\dot x)}},\qquad
+> \frac{\partial L}{\partial x^\rho} = -\frac{1}{2\sqrt{-g(\dot x,\dot x)}}\,\partial_\rho g_{\mu\nu}\dot x^\mu\dot x^\nu.$$
+> Multiplying the Euler--Lagrange equation by $\sqrt{-g(\dot x,\dot x)}$ and using the identity
+> $$\frac{d}{d\lambda}(g_{\rho\nu}\dot x^\nu)=g_{\rho\nu}\ddot x^\nu + \partial_\mu g_{\rho\nu}\dot x^\mu \dot x^\nu,$$
+> one arrives at
+> $$\ddot x^\sigma + \Gamma^\sigma{}_{\mu\nu}\dot x^\mu\dot x^\nu = f(\lambda)\dot x^\sigma,$$
+> where $f$ is a scalar function encoding the non-affine parametrization (this is the reparametrization invariance at work).
+> If $\lambda$ is chosen so that $g(\dot x,\dot x)$ is constant (in particular, for proper time on a timelike curve), then $f\equiv 0$ and the equation becomes the geodesic equation with affine parameter.
+> The converse is verified by running the first-variation computation for $\mathcal{T}$ and using $\nabla g=0$.
 
-This proposition explains why proper time is the natural parameter for massive particles.
+## Geodesics as locally inertial motion: a self-consistency argument
 
-> [!info] Proper Time and Arc-Length Parameters
-> Let $\gamma$ be timelike. A parameter $\tau$ is called **proper time** along $\gamma$ if
-> $$g(\dot\gamma,\dot\gamma)\equiv -1.$$
-> Let $\gamma$ be spacelike. A parameter $s$ is called **arc-length** if
-> $$g(\dot\gamma,\dot\gamma)\equiv +1.$$
+Here is the most “physics” definition of a geodesic, and it is the one that makes the equivalence principle precise.
 
-> [!abstract] Proper Time and Arc-Length Are Affine
-> If $\gamma$ is a timelike (resp. spacelike) geodesic and is parameterized by proper time $\tau$ (resp. arc-length $s$), then this parameter is affine.
+> [!info] Geodesics as free fall (local inertial characterization)
+> A timelike curve $\gamma$ describes **free fall** if around every point $p=\gamma(\tau_0)$ there exist local coordinates in which, at $p$,
+> $$g_{\mu\nu}(p)=\eta_{\mu\nu},\qquad \partial_\alpha g_{\mu\nu}(p)=0,$$
+> and in which $\gamma$ has zero coordinate acceleration at $p$:
+> $$\frac{d^2 x^\mu}{d\tau^2}\Big|_{\tau_0}=0.$$
 
-> [!success] Proof
-> If $\gamma$ is an affine geodesic, $g(\dot\gamma,\dot\gamma)$ is constant. Rescaling the parameter by a constant factor changes $\dot\gamma$ by the reciprocal factor and therefore rescales $g(\dot\gamma,\dot\gamma)$ by a constant. Thus, after an affine change of parameter, we can impose the normalization $g(\dot\gamma,\dot\gamma)=\pm 1$. Conversely, any parameter with $g(\dot\gamma,\dot\gamma)\equiv \pm 1$ differs from an affine parameter by an affine rescaling on each connected segment where $\dot\gamma\neq 0$.
-
-> [!danger] Why Null Curves Are Different
-> Null geodesics are fundamentally different: if $g(\dot\gamma,\dot\gamma)\equiv 0$, there is no way to normalize the speed to $\pm 1$. Null geodesics still admit affine parameters, but there is no canonical normalization. Physically this is why “proper time” is a concept for massive observers but not for light.
-
-## Two Variational Principles: Energy vs. Length/Proper Time
-
-There are two closely related functionals one can put on curves: an **energy** functional that depends on the parameter and produces affine geodesics, and a **length/proper time** functional that is reparameterization-invariant and produces the same unparameterized curves.
-
-### The Energy Functional Selects Affine Parameters
-
-> [!info] Energy Functional
-> For a $C^1$ curve $\gamma:[a,b]\to M$, define
-> $$E[\gamma]:=\frac12\int_a^b g(\dot\gamma,\dot\gamma)\,dt.$$
-
-> [!note] Critical Points of Energy Are Affine Geodesics
-> Let $(M,g)$ be semi-Riemannian. A $C^2$ curve $\gamma$ with fixed endpoints is a critical point of $E[\gamma]$ among $C^1$ variations with fixed endpoints if and only if $\gamma$ is an affinely parameterized geodesic:
-> $$\frac{D\dot\gamma}{dt}=0.$$
+> [!abstract] Free fall $\Longleftrightarrow$ geodesic
+> A smooth timelike curve is free fall in the above local-inertial sense if and only if it is a timelike geodesic.
 
 > [!success] Proof
-> Work in local coordinates $x^i(t)$ and write $g=g_{ij}(x)\,dx^i dx^j$. The Lagrangian for $E$ is
-> $$L(x,\dot x)=\frac12\,g_{ij}(x)\dot x^i\dot x^j.$$
-> Compute
-> $$\frac{\partial L}{\partial \dot x^k}=g_{kj}(x)\dot x^j,\quad \frac{\partial L}{\partial x^k}=\frac12(\partial_k g_{ij})(x)\dot x^i\dot x^j.$$
-> The Euler–Lagrange equations become
-> $$\frac{d}{dt}\big(g_{kj}\dot x^j\big)-\frac12(\partial_k g_{ij})\dot x^i\dot x^j=0.$$
-> Expand the total derivative:
-> $$\frac{d}{dt}\big(g_{kj}\dot x^j\big)=(\partial_\ell g_{kj})\dot x^\ell\dot x^j+g_{kj}\ddot x^j.$$
-> Thus
-> $$g_{kj}\ddot x^j+(\partial_\ell g_{kj})\dot x^\ell\dot x^j-\frac12(\partial_k g_{ij})\dot x^i\dot x^j=0.$$
-> Symmetrize the middle term by swapping dummy indices and averaging:
-> $$ (\partial_\ell g_{kj})\dot x^\ell\dot x^j=\frac12(\partial_\ell g_{kj}+\partial_j g_{k\ell})\dot x^\ell\dot x^j. $$
-> So
-> $$g_{kj}\ddot x^j+\frac12\big(\partial_i g_{jk}+\partial_j g_{ik}-\partial_k g_{ij}\big)\dot x^i\dot x^j=0.$$
-> Multiplying by $g^{mk}$ yields
-> $$\ddot x^m+\Gamma^m{}_{ij}\dot x^i\dot x^j=0,$$
-> with $\Gamma^m{}_{ij}$ the Levi-Civita symbols. This is exactly $\frac{D\dot\gamma}{dt}=0$.
+> ($\Rightarrow$) In any coordinates, the acceleration vector is
+> $$(\nabla_{\dot\gamma}\dot\gamma)^\mu = \frac{d^2 x^\mu}{d\tau^2} + \Gamma^\mu{}_{\alpha\beta}\frac{dx^\alpha}{d\tau}\frac{dx^\beta}{d\tau}.$$
+> In local inertial coordinates at $p$, $\Gamma(p)=0$ (Lecture 2.1) and $d^2x^\mu/d\tau^2|_p=0$ by assumption, hence $\nabla_{\dot\gamma}\dot\gamma=0$ at $p$. Since $p$ was arbitrary, $\gamma$ is a geodesic.
+>
+> ($\Leftarrow$) If $\gamma$ is a geodesic, choose Fermi normal coordinates along it (Lecture 2.1). On $\gamma$, all Christoffel symbols vanish and $\gamma$ is $x^i=0$, hence $d^2 x^\mu/d\tau^2=0$ along the curve. Thus $\gamma$ is locally inertial at each point.
 
-> [!danger] Why Energy Fixes the Parameter
-> The key feature is that the energy functional is **not** reparameterization-invariant. That is precisely why it locks you into affine parameters: if you change parameters non-affinely, the value of $E$ changes, and the Euler–Lagrange equation changes accordingly.
+> [!danger] Remark
+> This is the conceptual punchline: the equivalence principle demands that a freely falling observer can regard herself as inertial **to first order**. The geometric implementation of “to first order” is $\Gamma=0$ on the worldline, and that is exactly the geodesic condition.
 
-### The Length/Proper Time Functional Selects the Curve, Not the Parameter
+## Parallel transport: what it preserves and why it matters
 
-Assume $\gamma$ is everywhere timelike or everywhere spacelike so that $g(\dot\gamma,\dot\gamma)$ has a constant sign and never vanishes.
+> [!info] Parallel transport along a curve
+> Let $\gamma:I\to M$ be smooth. A vector field $V$ along $\gamma$ is **parallel** if
+> $$\nabla_{\dot\gamma}V=0.$$
 
-> [!info] Length and Proper Time Functional
-> Define
-> $$\mathcal{L}[\gamma]:=\int_a^b \sqrt{|g(\dot\gamma,\dot\gamma)|}\,dt.$$
-> In the timelike case, $\mathcal{L}$ is (up to a sign convention) the physical proper time elapsed along the worldline. In the spacelike (or Riemannian) case, it is the ordinary length.
-
-> [!abstract] Reparameterization Invariance of $\mathcal{L}$
-> If $\phi:[\tilde a,\tilde b]\to[a,b]$ is an orientation-preserving $C^1$ diffeomorphism, then
-> $$\mathcal{L}[\gamma\circ\phi]=\mathcal{L}[\gamma].$$
+> [!abstract] Metric preservation under parallel transport
+> If $V$ and $W$ are parallel along $\gamma$, then $g(V,W)$ is constant along $\gamma$. In particular, $g(V,V)$ is constant.
 
 > [!success] Proof
-> Write $\widetilde\gamma=\gamma\circ\phi$. Then $\dot{\widetilde\gamma}(\sigma)=\dot\gamma(\phi(\sigma))\,\phi'(\sigma)$. Hence
-> $$\sqrt{|g(\dot{\widetilde\gamma},\dot{\widetilde\gamma})|}=\sqrt{|g(\dot\gamma,\dot\gamma)|}\,\phi'(\sigma),$$
-> and a change of variables completes the proof.
+> Using metric compatibility,
+> $$\frac{d}{d\lambda}g(V,W)=\dot\gamma\bigl(g(V,W)\bigr)=g(\nabla_{\dot\gamma}V,W)+g(V,\nabla_{\dot\gamma}W)=0.$$
 
-> [!note] Critical Points of $\mathcal{L}$ Are Geodesics Up to Reparameterization
-> Let $\gamma$ be $C^2$ with fixed endpoints and assume $g(\dot\gamma,\dot\gamma)$ never vanishes and has constant sign on $[a,b]$. Then $\gamma$ is a critical point of $\mathcal{L}$ if and only if, after reparameterizing by arc-length (spacelike) or proper time (timelike), it becomes an affine geodesic. Equivalently, in an arbitrary parameter $t$ the Euler–Lagrange equation is the non-affine geodesic equation
-> $$\frac{D\dot\gamma}{dt}=f(t)\,\dot\gamma$$
-> for some scalar function $f$.
+> [!danger] Remark
+> This is why orthonormal frames can be parallel transported along geodesics (as we used to build Fermi coordinates). In physics terms: gyroscopes define a transport law, and in GR the “no-torque” transport is precisely parallel transport.
 
-> [!success] Proof
-> Let $\gamma$ be critical for $\mathcal{L}$. Since $\mathcal{L}$ is reparameterization-invariant, we may replace $\gamma$ by any orientation-preserving reparameterization without changing criticality. Reparameterize $\gamma$ by proper time (timelike) or arc-length (spacelike), obtaining $\overline\gamma$ with $|g(\dot{\overline\gamma},\dot{\overline\gamma})|\equiv 1$.
-> In that parameter, the Lagrangians for $\mathcal{L}$ and for $E$ differ by a constant factor along admissible curves, and the Euler–Lagrange equations coincide. Concretely, writing
-> $$L_{\mathcal{L}}(x,\dot x)=\sqrt{|g_{ij}(x)\dot x^i\dot x^j|},\quad L_E(x,\dot x)=\frac12 g_{ij}(x)\dot x^i\dot x^j,$$
-> one checks that along curves satisfying $|g(\dot x,\dot x)|\equiv 1$ we have $L_{\mathcal{L}}\equiv 1$ and the first variation equations reduce to those of $L_E$ (the normalization removes the parameter-dependent prefactor coming from the square root). Therefore $\overline\gamma$ is an affine geodesic by the previous theorem. Undoing the reparameterization gives the non-affine form, since any reparameterization of an affine geodesic satisfies $\frac{D\dot\gamma}{dt}=f(t)\dot\gamma$ as proved earlier.
-> Conversely, if $\gamma$ is a reparameterization of an affine geodesic, then in its arc-length/proper-time parameter it is a critical point of $E$ and hence of $\mathcal{L}$, and reparameterization-invariance implies the original parameterization is also critical for $\mathcal{L}$.
+## Killing fields and conserved quantities: the Schwarzschild/Kerr toolbox
 
-> [!danger] Proper Time Extremization
-> In Lorentzian geometry there is an important additional statement: among sufficiently nearby timelike curves with fixed endpoints, a timelike geodesic locally **maximizes** proper time. Proving this cleanly requires the second variation and the notion of conjugate points, which we will return to later when discussing focusing and singularity theorems.
+In curved spacetime, global translation symmetry is gone in general. What survives are **isometries**. A Killing field is the infinitesimal generator of an isometry.
 
-## Null Geodesics and the Auxiliary-Field Trick
+> [!info] Killing vector field
+> A vector field $K$ on $(M,g)$ is a **Killing field** if
+> $$\mathcal{L}_K g = 0.$$
+> Equivalently,
+> $$\nabla_a K_b + \nabla_b K_a = 0.$$
 
-For null curves, $\mathcal{L}[\gamma]=\int \sqrt{|g(\dot\gamma,\dot\gamma)|}\,dt$ is identically $0$, so it cannot characterize null geodesics variationally. A standard fix is to introduce an auxiliary positive function (an “einbein”) to recover a meaningful action.
-
-> [!info] Einbein Action for Causal Geodesics
-> Let $\gamma:[a,b]\to M$ be $C^1$ and let $e:[a,b]\to(0,\infty)$ be $C^1$. Define
-> $$\mathcal{S}[\gamma,e]:=\frac12\int_a^b e^{-1}(t)\,g(\dot\gamma,\dot\gamma)\,dt.$$
-
-> [!abstract] Euler–Lagrange Equations and the Null Constraint
-> Critical points $(\gamma,e)$ of $\mathcal{S}$ satisfy
-> $$\frac{D}{dt}\big(e^{-1}\dot\gamma\big)=0\quad\text{and}\quad g(\dot\gamma,\dot\gamma)=0.$$
-> In particular, $\gamma$ is a null geodesic up to reparameterization, and choosing a parameter with $e\equiv 1$ produces an affine parameter along $\gamma$.
+> [!abstract] Conservation law from a Killing field
+> Let $\gamma(\lambda)$ be an affinely parametrized geodesic with tangent $u=\dot\gamma$. If $K$ is a Killing field, then the scalar
+> $$\mathcal{C}_K := g(K,u)$$
+> is constant along $\gamma$:
+> $$\frac{d}{d\lambda}g(K,u)=0.$$
 
 > [!success] Proof
-> Work in local coordinates $x^i(t)$ with Lagrangian
-> $$L(x,\dot x,e)=\frac12 e^{-1}g_{ij}(x)\dot x^i\dot x^j.$$
-> First vary in $e$:
-> $$\frac{\partial L}{\partial e}=-\frac12 e^{-2}g_{ij}\dot x^i\dot x^j,$$
-> so the Euler–Lagrange equation for $e$ gives $g_{ij}\dot x^i\dot x^j=0$, i.e. $g(\dot\gamma,\dot\gamma)=0$.
-> Next vary in $x^k$. We have
-> $$\frac{\partial L}{\partial \dot x^k}=e^{-1}g_{kj}\dot x^j,\quad \frac{\partial L}{\partial x^k}=\frac12 e^{-1}(\partial_k g_{ij})\dot x^i\dot x^j.$$
-> The Euler–Lagrange equation reads
-> $$\frac{d}{dt}\big(e^{-1}g_{kj}\dot x^j\big)-\frac12 e^{-1}(\partial_k g_{ij})\dot x^i\dot x^j=0.$$
-> Multiply by $e$ and expand the derivative:
-> $$\frac{d}{dt}\big(g_{kj}\dot x^j\big)-\frac{\dot e}{e}\,g_{kj}\dot x^j-\frac12(\partial_k g_{ij})\dot x^i\dot x^j=0.$$
-> As in the energy computation, rewrite the first and third terms using the Levi-Civita symbols to obtain
-> $$\ddot x^m+\Gamma^m{}_{ij}\dot x^i\dot x^j=\frac{\dot e}{e}\,\dot x^m,$$
-> which is exactly the non-affine geodesic equation $\frac{D\dot\gamma}{dt}=f(t)\dot\gamma$ with $f=\dot e/e$. Equivalently, $\frac{D}{dt}(e^{-1}\dot\gamma)=0$.
-> Finally, if we reparameterize by a new parameter $\tau$ satisfying $d\tau/dt=e(t)$, then in $\tau$ we have $e\equiv 1$ and the equation becomes $\frac{D\dot\gamma}{d\tau}=0$, i.e. $\tau$ is affine.
+> Differentiate and use the geodesic equation:
+> $$\frac{d}{d\lambda}g(K,u)=g(\nabla_u K,u)+g(K,\nabla_u u)=g(\nabla_u K,u).$$
+> Now symmetrize:
+> $$g(\nabla_u K,u)=u^a u^b \nabla_a K_b=\frac12 u^a u^b (\nabla_a K_b + \nabla_b K_a)=0$$
+> by the Killing equation.
 
-> [!danger] Same Structure as the Massive Particle Trick
-> This is the same structural pattern we saw earlier for the massive particle: an auxiliary field turns a homogeneous square-root Lagrangian into a quadratic one, making the symmetry (reparameterization invariance) and its associated constraint transparent. In the null case the constraint is exactly $g(\dot\gamma,\dot\gamma)=0$.
+> [!danger] Remark
+> If $K$ is timelike in a region, it represents a time-translation symmetry there and $-g(K,u)$ is an energy per unit mass. If $K$ is spacelike with closed orbits (an axial symmetry), $g(K,u)$ is an angular momentum component. This is exactly what we will exploit in Schwarzschild and Kerr, where the geometry is built to have Killing fields.
 
-## Initial Value Problem, Exponential Map, and Normal Coordinates
-
-Geodesics are defined by an ODE, so existence and uniqueness are a theorem of ODE theory, but the geometric payoff is large: it lets us build coordinates adapted to free fall.
-
-> [!note] Local Existence and Uniqueness for Geodesics
-> Given $(p,v)\in TM$, there exists $\varepsilon>0$ and a unique geodesic $\gamma:(-\varepsilon,\varepsilon)\to M$ such that $\gamma(0)=p$ and $\dot\gamma(0)=v$. Moreover, $\gamma$ depends smoothly on $(p,v)$.
+> [!abstract] Killing fields and Noether: the particle-action viewpoint
+> Consider the free-particle action
+> $$S[\gamma]=-\!m\int \sqrt{-g(\dot\gamma,\dot\gamma)}\,d\lambda.$$
+> If $K$ is a Killing field, then the infinitesimal variation $\delta x^\mu = \epsilon K^\mu$ is a symmetry of the action, and the corresponding Noether charge is $p_\mu K^\mu$, which reduces (for proper-time parametrization) to $m\,g(K,u)$.
 
 > [!success] Proof
-> In a coordinate chart, the geodesic equation is a smooth second-order ODE system. Write it as a first-order system on $TU$:
-> $$\dot x^k=y^k,\quad \dot y^k=-\Gamma^k{}_{ij}(x)\,y^i y^j.$$
-> Picard–Lindelöf gives local existence, uniqueness, and smooth dependence on initial data.
+> Under $\delta x^\mu=\epsilon K^\mu$, the metric variation induced is $\delta g = \epsilon \mathcal{L}_K g=0$, so the Lagrangian is invariant. The canonical momentum is $p_\mu=\partial L/\partial \dot x^\mu$ and hence Noether's theorem gives conservation of $p_\mu K^\mu$. In proper time gauge $p_\mu = m u_\mu$, so $p_\mu K^\mu = m g(K,u)$.
 
-> [!info] Exponential Map
-> Fix $p\in M$. For $v$ in a sufficiently small neighborhood of $0\in T_pM$, let $\gamma_v$ be the unique geodesic with $\gamma_v(0)=p$ and $\dot\gamma_v(0)=v$. Define
-> $$\exp_p(v):=\gamma_v(1).$$
-
-> [!abstract] Derivative of $\exp_p$ at the Origin
-> For each $p\in M$, one has $(d\exp_p)_0=\mathrm{id}_{T_pM}$. In particular, $\exp_p$ is a local diffeomorphism near $0$.
-
-> [!success] Proof
-> In local coordinates centered at $p$, the geodesic equation implies the Taylor expansion $x(t)=tv+O(t^2)$ for the geodesic with initial velocity $v$. Hence $\exp_p(v)=x(1)=v+O(|v|^2)$, so differentiating at $0$ gives the identity.
-
-> [!info] Normal Coordinates
-> Choose a basis of $T_pM$ and identify it with $\mathbb{R}^n$. The coordinate chart near $p$ given by $\exp_p$ is called a system of **normal coordinates** centered at $p$.
-
-> [!abstract] Christoffel Symbols Vanish at the Center of Normal Coordinates
-> In normal coordinates centered at $p$, one has $\Gamma^k{}_{ij}(p)=0$.
-
-> [!success] Proof
-> In normal coordinates, the geodesic through $p$ with initial velocity $v$ is, by construction, the curve $t\mapsto tv$ in coordinate space. Plugging $x^k(t)=tv^k$ into the geodesic equation gives at $t=0$
-> $$0=\Gamma^k{}_{ij}(p)\,v^i v^j\quad\text{for all }v\in\mathbb{R}^n.$$
-> By polarization, $\Gamma^k{}_{ij}(p)=0$.
-
-> [!abstract] First Derivatives of the Metric Vanish in Normal Coordinates
-> Let $(x^i)$ be normal coordinates centered at $p$. Then
-> $$\partial_\ell g_{ij}(p)=0\quad\text{for all }i,j,\ell.$$
-
-> [!success] Proof
-> Metric compatibility in coordinates says
-> $$(\nabla_\ell g)_{ij}=\partial_\ell g_{ij}-\Gamma^m{}_{\ell i}g_{mj}-\Gamma^m{}_{\ell j}g_{im}.$$
-> Since $\nabla g=0$ and $\Gamma^m{}_{\ell i}(p)=0$ in normal coordinates, evaluating at $p$ yields $\partial_\ell g_{ij}(p)=0$.
-
-> [!danger] What “Local Inertial Frame” Really Means
-> This is the cleanest mathematical version of “local inertial frames.” In suitable coordinates centered at a point $p$, the metric looks constant to first order and the geodesic equation has no Christoffel terms at $p$. What you cannot kill is curvature: the second derivatives of $g$ (and the tidal effects they encode) are the invariant content.
-
-## Two Concrete Sanity Checks
-
-### Minkowski Spacetime
-
-In inertial coordinates on Minkowski space, $\Gamma\equiv 0$, so the geodesic equation is simply $\ddot x^\mu=0$. Thus geodesics are affine lines. In curvilinear coordinates the Christoffel symbols do not vanish, but the geodesics are still the same geometric curves; the complicated coordinate ODE is just straight motion written in a distorted parameterization.
-
-### The Round $2$-Sphere
-
-On $(S^2,g_{\mathrm{round}})$, geodesics are great circles. One quick way to see this (without already knowing the answer) is: a unit-speed geodesic has constant speed by the “Constant Speed Along Affine Geodesics” proposition, and by the variational theorem it is a critical point of the energy among fixed-endpoint curves. In embedded coordinates in $\mathbb{R}^3$, one can show that the geodesic acceleration is normal to the sphere, forcing the curve to lie in a plane through the origin, hence a great circle. We will revisit this type of computation later in spacetime when we interpret geodesic deviation as a curvature effect.
-
-In this lecture we developed geodesics from both the connection and variational perspectives, including the role of affine parameters and proper time. We also introduced the exponential map and normal coordinates as the local “inertial” charts built from geodesics. Next we introduce curvature as the obstruction to flattening geometry beyond first order.
+> [!example] Two conserved quantities you will see constantly
+> Let $(M,g)$ be stationary and axisymmetric, with Killing fields $T$ (timelike in the exterior) and $\Phi$ (axial). For a timelike geodesic with 4-velocity $u$, define
+> $$E := -g(T,u),\qquad L := g(\Phi,u).$$
+> Then $E$ and $L$ are constants of motion along the geodesic. In Schwarzschild, these are energy and angular momentum per unit mass; in Kerr they remain the first two entries in the conserved-quantity toolkit (with a third, Carter's constant, appearing from a hidden symmetry).

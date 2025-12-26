@@ -28,16 +28,12 @@ Given such $\Omega$, it is convenient to package it as a linear map into the dua
 The key normal form is a skew-symmetric analogue of Gram--Schmidt.
 
 > [!note] Standard Form for Skew-Symmetric Bilinear Maps
-> Let $\Omega$ be a skew-symmetric bilinear map on an $m$-dimensional real vector space $V$.
-> Then there exists a basis
+> Let $\Omega$ be a skew-symmetric bilinear map on an $m$-dimensional real vector space $V$. Then there exists a basis
 > $$u_1,\dots,u_k,\ e_1,\dots,e_n,\ f_1,\dots,f_n$$
 > of $V$ such that
-> 
-> > (i) $\Omega(u_i,v)=0$ for all $i$ and all $v\in V$;
-> > 
-> > (ii) $\Omega(e_i,e_j)=0=\Omega(f_i,f_j)$ for all $i,j$;
-> > 
-> > (iii) $\Omega(e_i,f_j)=\delta_{ij}$ for all $i,j$.
+> - $\Omega(u_i,v)=0$ for all $i$ and all $v\in V$;
+> - $\Omega(e_i,e_j)=0=\Omega(f_i,f_j)$ for all $i,j$;
+> - $\Omega(e_i,f_j)=\delta_{ij}$ for all $i,j$.
 > 
 > In particular, $m=k+2n$, and the restriction of $\Omega$ to
 > $W:=\mathrm{span}\{e_1,\dots,e_n,f_1,\dots,f_n\}$ is nondegenerate.
@@ -45,14 +41,12 @@ The key normal form is a skew-symmetric analogue of Gram--Schmidt.
 > [!success] Proof
 > Let $U:=\ker(\widetilde{\Omega})$. Choose a basis $u_1,\dots,u_k$ of $U$
 > and a complementary subspace $W$ so that $V=U\oplus W$.
-> By definition, $\Omega|_{U\times V}\equiv 0$, so it remains to put $\Omega|_{W\times W}$
-> into standard form.
+> By definition, $\Omega|_{U\times V}\equiv 0$, so it remains to put $\Omega|_{W\times W}$ into standard form.
 > 
 > If $W=\{0\}$ there is nothing to prove. Otherwise, pick $0\neq e_1\in W$.
 > Because $e_1\notin U$, there exists $f_1\in V$ with $\Omega(e_1,f_1)\neq 0$.
 > Replacing $f_1$ by $\frac{1}{\Omega(e_1,f_1)}f_1$, we may assume $\Omega(e_1,f_1)=1$.
-> Since $\Omega(e_1,u)=0$ for all $u\in U$, we may further replace $f_1$ by its $W$-component
-> (with respect to $V=U\oplus W$) without changing $\Omega(e_1,f_1)$; hence $f_1\in W$.
+> Since $\Omega(e_1,u)=0$ for all $u\in U$, we may further replace $f_1$ by its $W$-component (with respect to $V=U\oplus W$) without changing $\Omega(e_1,f_1)$; hence $f_1\in W$.
 > 
 > Let $W_1:=\mathrm{span}\{e_1,f_1\}\subset W$ and define
 > $$W':=\{\,w\in W \mid \Omega(w,e_1)=0=\Omega(w,f_1)\,\}.$$

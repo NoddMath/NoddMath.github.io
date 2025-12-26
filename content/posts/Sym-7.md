@@ -1,5 +1,5 @@
 +++
-date = "2024-11-18T15:44:10-04:00"
+date = "2024-11-14T15:44:10-04:00"
 draft = false
 title = "Darboux Theorem"
 categories = [ "Math" ]
@@ -58,9 +58,7 @@ The following lemma is a convenient way to organize this.
 > Choose a coordinate chart $\psi:U\to \mathbb{R}^{2n}$ with $\psi(p)=0$.
 > Transport $\omega$ to a $2$-form on $\psi(U)$ by setting
 > $$\widetilde{\omega}:=(\psi^{-1})^*\omega.$$
-> Then $\widetilde{\omega}$ is symplectic on $\psi(U)$ and $\widetilde{\omega}_0:=\widetilde{\omega}(0)$ is a nondegenerate skew form
-> on $T_0\mathbb{R}^{2n}\cong \mathbb{R}^{2n}$. By linear symplectic algebra, there exists a linear isomorphism
-> $A:\mathbb{R}^{2n}\to \mathbb{R}^{2n}$ such that
+> Then $\widetilde{\omega}$ is symplectic on $\psi(U)$ and $\widetilde{\omega}_0:=\widetilde{\omega}(0)$ is a nondegenerate skew form on $T_0\mathbb{R}^{2n}\cong \mathbb{R}^{2n}$. By linear symplectic algebra, there exists a linear isomorphism $A:\mathbb{R}^{2n}\to \mathbb{R}^{2n}$ such that
 > $$A^*\omega_0=\widetilde{\omega}_0,$$
 > where $\omega_0=\sum_{i=1}^n dx_i\wedge dy_i$ is the standard form. Replace $\psi$ by $A\circ \psi$.
 > With this replacement, we may assume that
@@ -73,8 +71,7 @@ The following lemma is a convenient way to organize this.
 > For $t\in[0,1]$, define the family of $2$-forms
 > $$\omega_t:=\omega_0+t\beta=\omega_0+t(\widetilde{\omega}-\omega_0).$$
 > We have $\omega_0$ at $t=0$ and $\widetilde{\omega}$ at $t=1$.
-> Moreover, shrinking $V$ if necessary, all $\omega_t$ are symplectic on $V$ because nondegeneracy is an open condition
-> and $\omega_t(0)=\omega_0(0)$ for all $t$.
+> Moreover, shrinking $V$ if necessary, all $\omega_t$ are symplectic on $V$ because nondegeneracy is an open condition and $\omega_t(0)=\omega_0(0)$ for all $t$.
 >
 > Since $\dot{\omega}_t=\beta=d\alpha$, we are in the local Moser setup.
 > Define a time-dependent vector field $X_t$ on $V$ by the Moser equation
