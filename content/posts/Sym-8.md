@@ -22,7 +22,7 @@ Weinstein's theorem is a **relative** version of Darboux: instead of standardizi
 > [!danger] Remark
 > The theorem says that the **only** local symplectic data near a Lagrangian $L$ is the smooth manifold $L$ itself:
 > a neighborhood of $L$ "is" a neighborhood of $0_L$ inside $T^*L$.
-> Thus many local questions about Lagrangians can be reduced to linear-algebraic and cotangent-bundle computations.
+> Thus, many local questions about Lagrangians can be reduced to linear-algebraic and cotangent-bundle computations.
 
 ## Normal Bundle and the Canonical Identification $NL\simeq T^*L$
 
@@ -68,7 +68,7 @@ with a primitive that vanishes along the reference submanifold.
 > Let $L$ be a manifold and let $V\subset T^*L$ be a neighborhood of the zero section $0_L$.
 > Let $\beta\in \Omega^2(V)$ be a closed $2$-form such that $\beta|_{0_L}\equiv 0$.
 > Then after shrinking $V$ if necessary, there exists a $1$-form $\alpha\in \Omega^1(V)$ such that
-> $$d\alpha=\beta\qquad\text{and}\qquad \alpha|_{0_L}\equiv 0.$$
+> $$d\alpha=\beta\quad\text{and}\quad \alpha|_{0_L}\equiv 0.$$
 
 > [!success] Proof
 > Fix a neighborhood $V$ on which the fiberwise scaling maps are defined:
