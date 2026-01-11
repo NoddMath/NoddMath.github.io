@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GR-6.md",
+                "file": "GR-9.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "GR-6"
+              "title": "GR-9"
             }
           }
         ]
@@ -173,12 +173,13 @@
   },
   "active": "cd22e7ab247c5eb2",
   "lastOpenFiles": [
+    "GR-8.md",
+    "GR-9.md",
+    "GR-6.md",
     "GR-5.md",
     "GR-4.md",
     "GR-3.md",
-    "GR-6.md",
     "GR-2.md",
-    "GR-8.md",
     "Compactness.md",
     "Tangent Structure.md",
     "Paracompactness and Partition of Unity.md",
@@ -190,7 +191,6 @@
     "Sym-7.md",
     "Sym-6.md",
     "GR-7.md",
-    "GR-9.md",
     "Compactness of Products.md",
     "Countability Axioms and More.md",
     "The Axiom of Choice and Its Equivalences.md",

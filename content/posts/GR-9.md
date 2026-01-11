@@ -1,7 +1,7 @@
 +++
 date = "2025-03-11T15:44:10-04:00"
 draft = false
-title = "From the Newtonian Limit to The Shape of The Field Equation: Why $G_{ab}=8\pi T_{ab}$"
+title = 'From the Newtonian Limit to The Shape of The Field Equation: Why $G_{ab}=8\pi T_{ab}$'
 categories = [ "Math", "Others" ]
 ShowToc = true
 tags = [ "General Relativity", "Differential Geometry" ]
