@@ -1,6 +1,6 @@
 +++
 date = '2024-05-17T15:44:10-04:00'
-draft = false
+draft = true
 title = "The Axiom of Choice and Its Equivalences"
 categories = 'Math'
 +++

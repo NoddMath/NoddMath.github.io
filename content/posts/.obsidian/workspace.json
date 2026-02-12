@@ -13,16 +13,47 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "The Axiom of Choice and Its Equivalences.md",
+                "file": "Before You Read.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "The Axiom of Choice and Its Equivalences"
+              "title": "Before You Read"
+            }
+          },
+          {
+            "id": "e4f01f7d460c9e73",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Symplectic Geometry.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Symplectic Geometry"
+            }
+          },
+          {
+            "id": "8021bd2d8e121cee",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "General Relativity.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "General Relativity"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -158,7 +189,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:创建新数据库": false,
+      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -171,34 +202,34 @@
       "publish:发布更改": false
     }
   },
-  "active": "cd22e7ab247c5eb2",
+  "active": "8021bd2d8e121cee",
   "lastOpenFiles": [
-    "Cat-3.md",
-    "GR-6.md",
-    "Sym-8.md",
+    "Symplectic Geometry.md",
+    "General Relativity.md",
+    "Drafts.md",
+    "Before You Read.md",
+    "The Axiom of Choice and Its Equivalences.md",
     "GR-9.md",
-    "GR-8.md",
+    "Cat-1.md",
     "GR-5.md",
+    "GR-8.md",
+    "Cat-2.md",
     "GR-4.md",
+    "GR-1.md",
+    "Sym-1.md",
+    "Cat-3.md",
+    "Sym-4.md",
+    "GR-7.md",
+    "GR-6.md",
     "GR-3.md",
+    "Sym-8.md",
     "GR-2.md",
     "Compactness.md",
     "Tangent Structure.md",
     "Paracompactness and Partition of Unity.md",
     "More Compactness.md",
     "Smooth Manifolds.md",
-    "Before You Read.md",
-    "Cat-2.md",
     "Sym-7.md",
-    "Sym-6.md",
-    "GR-7.md",
-    "Compactness of Products.md",
-    "Countability Axioms and More.md",
-    "The Axiom of Choice and Its Equivalences.md",
-    "Regular Values, Critical Values and Two Theorems.md",
-    "Metrizability and Classical Results of Urysohn and Tietze.md",
-    "Sym-2.md",
-    "GR-1.md",
     "Drafts",
     "未命名.base",
     "未命名.canvas",
