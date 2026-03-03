@@ -1,6 +1,6 @@
 +++
 date = "2025-09-20T15:44:10-04:00"
-draft = false
+draft = true
 title = "General Relativity"
 categories = [ "Math" ]
 ShowToc = true

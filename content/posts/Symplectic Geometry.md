@@ -1,6 +1,6 @@
 +++
 date = "2025-06-13T15:44:10-04:00"
-draft = false
+draft = true
 title = "Symplectic Geometry"
 categories = [ "Math" ]
 ShowToc = true
