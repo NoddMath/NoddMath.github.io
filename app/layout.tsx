@@ -3,16 +3,16 @@ import "katex/dist/katex.min.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "微光与方程", template: "%s｜微光与方程" },
-  description: "在公式、直觉与世界之间写作——关于数学、物理与其他好问题的个人文章站。",
+  title: { default: "诺德的小站", template: "%s｜诺德的小站" },
+  description: "收纳个人的各种笔记以及奇奇怪怪的想法。",
   openGraph: {
-    title: "微光与方程",
-    description: "在公式、直觉与世界之间写作",
+    title: "诺德的小站",
+    description: "收纳个人的各种笔记以及奇奇怪怪的想法",
     type: "website",
   },
-  twitter: { card: "summary", title: "微光与方程", description: "在公式、直觉与世界之间写作" },
+  twitter: { card: "summary", title: "诺德的小站", description: "收纳个人的各种笔记以及奇奇怪怪的想法" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="zh-CN"><body>{children}</body></html>;
+  return <html lang="zh-CN" suppressHydrationWarning><body>{children}</body></html>;
 }
