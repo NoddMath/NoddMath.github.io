@@ -2,8 +2,16 @@
 
 import { useMemo, useState } from "react";
 import type { PostSummary } from "./lib/posts";
+import { ThemeToggle } from "./theme-toggle";
 
-const channels = ["全部", "数学", "物理", "随笔"] as const;
+const channels = ["全部", "数学/物理", "文学/历史/哲学", "其他"] as const;
+
+function channelForPost(post: PostSummary) {
+  if (post.categories.includes("随笔")) return "其他";
+  if (post.categories.some((category) => category === "数学" || category === "物理")) return "数学/物理";
+  if (post.categories.some((category) => category === "文学" || category === "历史" || category === "哲学")) return "文学/历史/哲学";
+  return "其他";
+}
 
 export function HomeClient({ posts }: { posts: PostSummary[] }) {
   const [channel, setChannel] = useState<(typeof channels)[number]>("全部");
@@ -13,7 +21,7 @@ export function HomeClient({ posts }: { posts: PostSummary[] }) {
   const visiblePosts = useMemo(() => {
     const keyword = query.trim().toLowerCase();
     return posts.filter((post) => {
-      const inChannel = channel === "全部" || post.categories.includes(channel);
+      const inChannel = channel === "全部" || channelForPost(post) === channel;
       const matches = !keyword || `${post.title} ${post.excerpt} ${post.categories.join(" ")}`.toLowerCase().includes(keyword);
       return inChannel && matches;
     });
@@ -22,14 +30,16 @@ export function HomeClient({ posts }: { posts: PostSummary[] }) {
   return (
     <div className="site-shell">
       <header className="topbar">
-        <a className="brand" href="#top" aria-label="微光与方程首页">
-          <i className="brand-mark" aria-hidden="true" />
-          <span>微光与方程</span>
-        </a>
+        <div className="brand-cluster">
+          <div className="brand brand-static" aria-label="诺德的小站">
+            <i className="brand-mark" aria-hidden="true" />
+            <span>诺德的小站</span>
+          </div>
+          <ThemeToggle />
+        </div>
         <nav className="nav" aria-label="主导航">
           <a href="#articles">文章</a>
           <a href="#columns">栏目</a>
-          <a href="#about">关于</a>
           <button className="search-button" type="button" aria-label="搜索文章" aria-expanded={searchOpen} onClick={() => setSearchOpen((open) => !open)}>
             <span aria-hidden="true" />
           </button>
@@ -47,16 +57,15 @@ export function HomeClient({ posts }: { posts: PostSummary[] }) {
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <div className="eyebrow">Notes from the observatory</div>
-            <h1 id="hero-title">微光与方程</h1>
-            <p className="subtitle">在公式、直觉与世界之间写作</p>
-            <p className="intro">这里记录那些值得慢慢推导的问题：自然为何呈现秩序，抽象如何抵达经验，以及一个公式怎样悄悄改变我们观看世界的方式。</p>
+            <h1 id="hero-title">诺德的小站</h1>
+            <p className="subtitle">收纳个人的各种笔记以及奇奇怪怪的想法</p>
             <a className="primary-link" href="#articles">开始阅读 <span aria-hidden="true">↓</span></a>
           </div>
           <div className="orbit-stage" aria-hidden="true">
             <i className="orbit orbit-one" /><i className="orbit orbit-two" /><i className="orbit orbit-three" />
             <i className="star-core" /><i className="planet" />
-            <div className="coordinates">31.2304° N<br />121.4737° E<br />UTC +08:00</div>
-            <div className="hero-formula">E = mc² <small>01 / ∞</small></div>
+            <div className="coordinates">23.1291° N<br />113.2644° E<br />UTC +08:00</div>
+            <div className="hero-formula">G<sub>μν</sub> + Λg<sub>μν</sub> = <span>(8πG/c⁴)T<sub>μν</sub></span></div>
           </div>
         </section>
 
@@ -87,21 +96,15 @@ export function HomeClient({ posts }: { posts: PostSummary[] }) {
             <div className="channels" role="group" aria-label="筛选文章栏目">
               {channels.map((item) => (
                 <button className="channel" type="button" key={item} aria-pressed={channel === item} onClick={() => setChannel(item)}>
-                  {item}<span>{item === "全部" ? posts.length : posts.filter((post) => post.categories.includes(item)).length}</span>
+                  {item}<span>{item === "全部" ? posts.length : posts.filter((post) => channelForPost(post) === item).length}</span>
                 </button>
               ))}
             </div>
-            <div className="observatory-note" id="about">
-              <span className="note-label">READING SYSTEM</span>
-              <p>文章以 Markdown 写作，支持 LaTeX 公式、表格、引用与代码块，为长时间阅读保留足够的呼吸。</p>
-              <code>∫ f(x) dx</code>
-            </div>
-            <div className="small-note"><span>观测日志</span><p>不定期更新。每一篇都从一个真正想弄明白的问题开始。</p></div>
           </aside>
         </section>
       </main>
 
-      <footer><span>© 2026 微光与方程</span><span>MATHEMATICS · PHYSICS · ESSAYS</span></footer>
+      <footer><span>© 2026 诺德的小站</span><span>MATHEMATICS · PHYSICS · AND MORE</span></footer>
     </div>
   );
 }
