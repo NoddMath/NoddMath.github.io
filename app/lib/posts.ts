@@ -14,10 +14,26 @@ export type Post = {
 
 export type PostSummary = Omit<Post, "markdown">;
 
+/** Estimate reading time from the actual Markdown source.
+ * Chinese characters are counted individually; Latin text is counted by words.
+ * Markdown syntax and fenced code are excluded so formatting does not inflate the estimate.
+ */
+function estimateReadingTime(markdown: string) {
+  const content = markdown
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/!?(?:\[[^\]]*\])(?:\([^)]*\)|\[[^\]]*\])/g, " ")
+    .replace(/[#>*_~`]/g, " ");
+  const chineseCharacters = content.match(/[\u3400-\u9fff]/g)?.length ?? 0;
+  const latinWords = content.match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)?.length ?? 0;
+  const minutes = Math.max(1, Math.ceil(chineseCharacters / 450 + latinWords / 200));
+  return `${minutes} 分钟`;
+}
+
 export const posts: Post[] = [
-  { slug: "symmetry-and-conservation", title: "为什么对称性会导向守恒律", excerpt: "从一个不会改变的动作出发，走向诺特定理的核心直觉。", categories: ["数学", "物理"], readingTime: "12 分钟", date: "2026.07.12", markdown: symmetry },
-  { slug: "fourier-and-sound", title: "从傅里叶级数到声音的形状", excerpt: "把复杂的波拆成简单的振动，并重新听见它们。", categories: ["数学"], readingTime: "8 分钟", date: "2026.07.06", markdown: fourier },
-  { slug: "arrow-of-time", title: "一次关于时间箭头的散步", excerpt: "方程大多不在意方向，而我们为什么只记得过去？", categories: ["物理", "随笔"], readingTime: "10 分钟", date: "2026.06.28", markdown: timeArrow },
-];
+  { slug: "symmetry-and-conservation", title: "为什么对称性会导向守恒律", excerpt: "从一个不会改变的动作出发，走向诺特定理的核心直觉。", categories: ["数学", "物理"], readingTime: estimateReadingTime(symmetry), date: "2026.07.12", markdown: symmetry },
+  { slug: "fourier-and-sound", title: "从傅里叶级数到声音的形状", excerpt: "把复杂的波拆成简单的振动，并重新听见它们。", categories: ["数学"], readingTime: estimateReadingTime(fourier), date: "2026.07.06", markdown: fourier },
+  { slug: "arrow-of-time", title: "一次关于时间箭头的散步", excerpt: "方程大多不在意方向，而我们为什么只记得过去？", categories: ["物理", "随笔"], readingTime: estimateReadingTime(timeArrow), date: "2026.06.28", markdown: timeArrow },
+]; 
 
 export function getPost(slug: string) { return posts.find((post) => post.slug === slug); }
